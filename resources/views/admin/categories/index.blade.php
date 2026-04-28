@@ -1,48 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="rounded-3xl border border-rose-100 bg-white p-6 shadow-sm">
+<section class="rounded-3xl border border-gray-200 bg-gray-50/80 p-5 shadow-sm sm:p-6">
     <div class="flex flex-wrap items-center justify-between gap-3">
-        <h1 class="font-['Playfair_Display'] text-3xl font-semibold text-gray-900">Admin - Category Management</h1>
-        <a href="{{ route('admin.categories.create') }}" class="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">+ New Category</a>
+        <div>
+            <h1 class="font-serif text-3xl font-semibold text-gray-900">Admin Category Management</h1>
+            <p class="mt-1 text-sm text-gray-600">Keep your floral catalog taxonomy clean and discoverable.</p>
+        </div>
+        <a href="{{ route('admin.categories.create') }}" class="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl">+ New Category</a>
     </div>
 
-    <div class="mt-6 overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-rose-50">
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">#</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Category Name</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Created At</th>
-                    <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-600">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 bg-white">
-                @forelse ($categories as $category)
-                    <tr>
-                        <td class="px-4 py-3 text-sm text-gray-600">{{ $category->id }}</td>
-                        <td class="px-4 py-3 text-sm font-medium text-gray-900">{{ $category->name }}</td>
-                        <td class="px-4 py-3 text-sm text-gray-600">{{ $category->created_at?->format('d/m/Y H:i') }}</td>
-                        <td class="px-4 py-3">
-                            <div class="flex justify-end gap-2">
-                                <a href="{{ route('admin.categories.edit', $category) }}" class="rounded-lg border border-emerald-300 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-50">Edit</a>
-                                <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" onsubmit="return confirm('Delete this category?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="rounded-lg border border-rose-300 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-50">Delete</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4" class="px-4 py-8 text-center text-sm text-gray-500">No categories found.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="mt-6 space-y-3">
+        @forelse ($categories as $category)
+            <article class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-xl sm:p-5">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-gray-500">Category #{{ $category->id }}</p>
+                        <h2 class="mt-1 text-lg font-semibold text-gray-900">{{ $category->name }}</h2>
+                        <p class="mt-1 text-sm text-gray-600">Created: {{ $category->created_at?->format('d/m/Y H:i') }}</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-end gap-2">
+                        <a href="{{ route('admin.categories.edit', $category) }}" class="rounded-lg border border-emerald-300 px-3 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-50">Edit</a>
+                        <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" onsubmit="return confirm('Delete this category?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="rounded-lg border border-rose-300 px-3 py-2 text-xs font-semibold text-rose-700 transition hover:bg-rose-50">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        @empty
+            <p class="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center text-sm text-gray-500">No categories found.</p>
+        @endforelse
     </div>
 
     <div class="mt-5">{{ $categories->links() }}</div>
-</div>
+</section>
 @endsection

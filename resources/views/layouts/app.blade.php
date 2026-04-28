@@ -7,19 +7,19 @@
     <title>{{ config('app.name', 'Fresh Flower Shop') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=playfair+display:500,600,700|figtree:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=montserrat:400,500,600,700|playfair+display:500,600,700&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-emerald-50 text-gray-800 antialiased">
+<body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-emerald-50 text-floral-charcoal antialiased">
     @php
         $navCategories = \Illuminate\Support\Facades\Schema::hasTable('categories')
             ? \App\Models\Category::orderBy('name')->get()
             : collect();
     @endphp
 
-    <nav class="sticky top-0 z-40 border-b border-rose-100 bg-white/95 backdrop-blur">
+    <nav class="sticky top-0 z-40 border-b border-white/70 bg-white/65 shadow-sm backdrop-blur-xl">
         <div class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-            <a href="{{ route('home') }}" class="font-['Playfair_Display'] text-2xl font-semibold text-rose-600">
+            <a href="{{ route('home') }}" class="font-serif text-2xl font-semibold text-rose-600">
                 Fresh Flower
             </a>
 

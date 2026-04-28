@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	body {
+		@apply bg-floral-mist text-floral-charcoal font-sans;
+	}
+}
+
+@layer components {
+	.floral-glass {
+		@apply border border-white/60 bg-white/70 backdrop-blur-xl;
+	}
+
+	.floral-hero-bg {
+		background-image: radial-gradient(circle at 10% 20%, rgba(248, 215, 223, 0.55), transparent 34%), radial-gradient(circle at 90% 75%, rgba(158, 183, 163, 0.38), transparent 36%), linear-gradient(180deg, #fff9fb 0%, #ffffff 46%, #f6faf7 100%);
+	}
+
+	.floral-pattern-mobile {
+		background-image: radial-gradient(circle at 100% 0%, rgba(244, 114, 182, 0.12), transparent 44%), radial-gradient(circle at 0% 100%, rgba(110, 231, 183, 0.2), transparent 40%);
+	}
+}

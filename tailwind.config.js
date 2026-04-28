@@ -11,8 +11,31 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                floral: {
+                    petal: '#f8d7df',
+                    sage: '#9eb7a3',
+                    charcoal: '#2a2a2a',
+                    mist: '#f6f7f5',
+                },
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+                serif: ['Playfair Display', ...defaultTheme.fontFamily.serif],
+            },
+            keyframes: {
+                'fade-in-up': {
+                    '0%': { opacity: '0', transform: 'translateY(18px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                'soft-float': {
+                    '0%, 100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(-6px)' },
+                },
+            },
+            animation: {
+                'fade-in-up': 'fade-in-up 0.7s ease-out both',
+                'soft-float': 'soft-float 6s ease-in-out infinite',
             },
         },
     },

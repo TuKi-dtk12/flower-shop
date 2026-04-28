@@ -72,7 +72,7 @@
                             @csrf
                             @method('PATCH')
                             <label for="status-{{ $order->id }}" class="sr-only">Update status</label>
-                            <select id="status-{{ $order->id }}" name="status" class="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-rose-400 focus:outline-none">
+                            <select id="status-{{ $order->id }}" name="status" class="min-w-[150px] rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-rose-400 focus:outline-none">
                                 <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>pending</option>
                                 <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>completed</option>
                                 <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>cancelled</option>
