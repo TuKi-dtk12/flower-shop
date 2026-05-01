@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -37,6 +38,10 @@ Route::get('/products/{product}', function (Product $product) {
 
     return view('products.show', compact('product'));
 })->name('products.show');
+
+Route::post('/chat/consult', [ChatController::class, 'consult'])
+    ->middleware('throttle:30,1')
+    ->name('chat.consult');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

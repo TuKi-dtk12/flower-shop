@@ -101,5 +101,142 @@
             <p>{{ now()->format('Y') }} | Secure Laravel Checkout</p>
         </div>
     </footer>
+
+    <div id="flower-chatbot" data-endpoint="{{ route('chat.consult') }}" class="fixed bottom-5 right-5 z-50">
+        <button
+            id="flower-chatbot-toggle"
+            type="button"
+            class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-rose-500 to-emerald-500 text-white shadow-xl transition hover:-translate-y-1"
+            aria-expanded="false"
+            aria-controls="flower-chatbot-panel"
+        >
+            <span class="sr-only">Open smart flower consultant</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 10h8M8 14h5m6-2a9 9 0 10-17.999.001A9 9 0 0019 12z" />
+            </svg>
+        </button>
+
+        <section
+            id="flower-chatbot-panel"
+            class="mt-3 hidden w-[22rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-3xl border border-white/70 bg-white/85 shadow-2xl backdrop-blur-xl"
+        >
+            <header class="bg-gradient-to-r from-rose-500 to-emerald-500 px-4 py-3 text-white">
+                <h3 class="font-serif text-lg font-semibold">Smart Flower Consultant</h3>
+                <p class="text-xs text-rose-50">Tu van mau hoa theo dip le va cam xuc cua ban</p>
+            </header>
+
+            <div id="flower-chatbot-messages" class="max-h-80 space-y-3 overflow-y-auto bg-white/80 p-4 text-sm">
+                <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-emerald-50 px-3 py-2 text-emerald-900">
+                    Xin chao, minh la tro ly tu van cua Fresh Flower. Ban muon tim hoa cho dip nao?
+                </div>
+            </div>
+
+            <form id="flower-chatbot-form" class="border-t border-gray-200 bg-white p-3">
+                @csrf
+                <label for="flower-chatbot-input" class="sr-only">Message</label>
+                <div class="flex items-end gap-2">
+                    <textarea
+                        id="flower-chatbot-input"
+                        name="message"
+                        rows="1"
+                        maxlength="500"
+                        placeholder="Vi du: Goi y bo hoa cho ky niem ngay cuoi, ngan sach 700k"
+                        class="max-h-28 min-h-[44px] flex-1 resize-y rounded-xl border border-rose-100 bg-white px-3 py-2 text-sm text-gray-800 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200"
+                    ></textarea>
+                    <button
+                        id="flower-chatbot-send"
+                        type="submit"
+                        class="rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                        Send
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        (function () {
+            const chatbotRoot = document.getElementById('flower-chatbot');
+            const toggleButton = document.getElementById('flower-chatbot-toggle');
+            const panel = document.getElementById('flower-chatbot-panel');
+            const form = document.getElementById('flower-chatbot-form');
+            const input = document.getElementById('flower-chatbot-input');
+            const sendButton = document.getElementById('flower-chatbot-send');
+            const messageBox = document.getElementById('flower-chatbot-messages');
+            const endpoint = chatbotRoot?.dataset.endpoint || '';
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
+            if (!chatbotRoot || !toggleButton || !panel || !form || !input || !sendButton || !messageBox || !endpoint) {
+                return;
+            }
+
+            const appendMessage = (text, role) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = role === 'user'
+                    ? 'ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-rose-500 px-3 py-2 text-white'
+                    : 'max-w-[85%] rounded-2xl rounded-tl-sm bg-emerald-50 px-3 py-2 text-emerald-900';
+                wrapper.textContent = text;
+                messageBox.appendChild(wrapper);
+                messageBox.scrollTop = messageBox.scrollHeight;
+            };
+
+            toggleButton.addEventListener('click', function () {
+                const isHidden = panel.classList.contains('hidden');
+                panel.classList.toggle('hidden');
+                toggleButton.setAttribute('aria-expanded', String(isHidden));
+
+                if (isHidden) {
+                    input.focus();
+                }
+            });
+
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const rawMessage = input.value;
+                const message = rawMessage.trim();
+
+                if (message.length < 2) {
+                    return;
+                }
+
+                appendMessage(message, 'user');
+                input.value = '';
+                sendButton.disabled = true;
+                sendButton.textContent = '...';
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ message }),
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        const errorMessage = (data && (data.message || data.error))
+                            ? data.message || data.error
+                            : 'Co loi xay ra, vui long thu lai.';
+                        appendMessage(errorMessage, 'bot');
+                        return;
+                    }
+
+                    appendMessage(data.reply || 'Minh chua co de xuat phu hop luc nay.', 'bot');
+                } catch (error) {
+                    appendMessage('Khong the ket noi den tro ly luc nay. Ban thu lai sau it phut nhe.', 'bot');
+                } finally {
+                    sendButton.disabled = false;
+                    sendButton.textContent = 'Send';
+                    input.focus();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
