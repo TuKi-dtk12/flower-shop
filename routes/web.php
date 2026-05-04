@@ -39,6 +39,36 @@ Route::get('/products/{product}', function (Product $product) {
     return view('products.show', compact('product'));
 })->name('products.show');
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/blog', function () {
+    return view('pages.blog');
+})->name('blog');
+
+Route::prefix('policies')->name('policies.')->group(function () {
+    Route::get('/', function () {
+        return view('pages.policies.index');
+    })->name('index');
+
+    Route::get('/privacy', function () {
+        return view('pages.policies.privacy');
+    })->name('privacy');
+
+    Route::get('/delivery', function () {
+        return view('pages.policies.delivery');
+    })->name('delivery');
+
+    Route::get('/terms', function () {
+        return view('pages.policies.terms');
+    })->name('terms');
+
+    Route::get('/return-refund', function () {
+        return view('pages.policies.refund');
+    })->name('refund');
+});
+
 Route::post('/chat/consult', [ChatController::class, 'consult'])
     ->middleware('throttle:30,1')
     ->name('chat.consult');

@@ -25,7 +25,7 @@ class ChatController extends Controller
         }
 
         $apiKey = (string) config('services.gemini.api_key');
-        $model = (string) config('services.gemini.model', 'gemini-1.5-flash');
+        $model = (string) config('services.gemini.model', 'gemini-2.5-flash');
         $baseUrl = rtrim((string) config('services.gemini.base_url', 'https://generativelanguage.googleapis.com/v1beta/models'), '/');
 
         if ($apiKey === '') {
@@ -36,22 +36,33 @@ class ChatController extends Controller
 
         $catalogText = $this->buildCatalogContext();
 
-        $systemInstruction = 'Ban la chuyen gia tu van cua shop hoa Fresh Flower. Dua tren danh sach san pham (Categories/Products), hay goi y mau hoa phu hop voi dip le hoac cam xuc cua khach hang bang tieng Viet lich su.';
+        $systemInstruction = 'Bạn là nhân viên bán hoa thông minh. Khi khách hàng hỏi, bạn BẮT BUỘC phải chọn ra ít nhất 2-3 sản phẩm từ danh sách dưới đây để giới thiệu. Phải nêu rõ Tên hoa và Giá tiền. Nếu ngân sách của khách không đủ cho mẫu nào, hãy khéo léo giới thiệu mẫu rẻ nhất.';
 
         $payload = [
+            'system_instruction' => [
+                'parts' => [
+                    [
+                        'text' => "Bạn là chuyên gia tư vấn của shop hoa Fresh Flower. " .
+                                "Nhiệm vụ: Dựa vào danh sách sản phẩm dưới đây để gợi ý hoa. " .
+                                "Quy tắc: \n" .
+                                "1. Luôn giới thiệu ít nhất 2 mẫu hoa cụ thể kèm giá.\n" .
+                                "2. Nếu khách có ngân sách, chỉ lọc hoa trong tầm giá đó.\n" .
+                                "3. Trả lời bằng tiếng Việt, phong cách lịch sự, ấm áp.\n\n" .
+                                "Danh sách sản phẩm hiện có:\n{$catalogText}"
+                    ]
+                ]
+            ],
             'contents' => [
                 [
                     'role' => 'user',
                     'parts' => [
-                        [
-                            'text' => "{$systemInstruction}\n\nDanh sach san pham hien co:\n{$catalogText}\n\nCau hoi khach hang: {$message}",
-                        ],
+                        ['text' => $message] // Chỉ gửi câu hỏi của khách ở đây
                     ],
                 ],
             ],
             'generationConfig' => [
-                'temperature' => 0.7,
-                'maxOutputTokens' => 500,
+                'temperature' => 0.8, // Tăng nhẹ để AI tư vấn "bay bổng" hơn một chút
+                'maxOutputTokens' => 1500, // Tăng lên để tránh bị cắt cụt câu trả lời
             ],
         ];
 

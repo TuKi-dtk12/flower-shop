@@ -95,10 +95,93 @@
         @yield('content')
     </main>
 
-    <footer class="mt-10 border-t border-rose-100 bg-white/80">
-        <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-gray-600 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-            <p>Fresh Flower Shop - Blooming for every moment.</p>
-            <p>{{ now()->format('Y') }} | Secure Laravel Checkout</p>
+    <footer class="mt-14 border-t border-rose-100 bg-gradient-to-b from-white via-rose-50/40 to-emerald-50/40">
+        <div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+                <div class="space-y-4">
+                    <div>
+                        <p class="font-serif text-2xl font-semibold text-rose-600">Fresh Flower</p>
+                        <p class="mt-2 text-sm text-gray-600">Fresh blooms, curated with care.</p>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <p><span class="font-medium text-gray-700">Address:</span> 72/34 Dương Đức Hiền, Tây Thạnh, TPHCM</p>
+                        <p><span class="font-medium text-gray-700">Phone:</span> 0866384257</p>
+                        <p><span class="font-medium text-gray-700">Email:</span> tuankiet121305@gmail.com</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <a href="https://www.facebook.com/tu4nk13t" class="flex h-9 w-9 items-center justify-center rounded-full border border-rose-200 bg-white text-rose-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-rose-50" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+                                <path d="M13.5 8.5V7.2c0-.6.4-1 1-1h1.6V4h-2.2c-2 0-3.4 1.5-3.4 3.6v.9H9v2.4h1.5V20h3v-9.1h2l.4-2.4h-2.4z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/i_tki3t/" class="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-200 bg-white text-emerald-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-50" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+                                <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm10 2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm4.7-2.3a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@tu4nki3t?lang=vi-VN" class="flex h-9 w-9 items-center justify-center rounded-full border border-rose-200 bg-white text-rose-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-rose-50" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+                                <path d="M16.4 4c.6.8 1.6 1.4 2.6 1.6v2.5c-1.2 0-2.3-.4-3.3-1v6.2a5.4 5.4 0 1 1-5.4-5.4c.3 0 .6 0 .9.1v2.7a2.6 2.6 0 1 0 2.5 2.6V4h2.7z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <p class="text-sm font-semibold uppercase tracking-wide text-gray-800">Quick Links</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="{{ route('about') }}" class="transition hover:text-rose-600">About Us</a></li>
+                        <li><a href="{{ route('products.index') }}" class="transition hover:text-rose-600">All Products</a></li>
+                        <li><a href="{{ route('blog') }}" class="transition hover:text-rose-600">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <p class="text-sm font-semibold uppercase tracking-wide text-gray-800">Policies</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="{{ route('policies.privacy') }}" class="transition hover:text-emerald-600">Privacy Policy</a></li>
+                        <li><a href="{{ route('policies.delivery') }}" class="transition hover:text-emerald-600">Delivery Policy</a></li>
+                        <li><a href="{{ route('policies.terms') }}" class="transition hover:text-emerald-600">Terms of Service</a></li>
+                        <li><a href="{{ route('policies.refund') }}" class="transition hover:text-emerald-600">Return &amp; Refund</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-gray-800">Newsletter</p>
+                        <p class="mt-2 text-sm text-gray-600">Subscribe to get 10% off</p>
+                    </div>
+                    <form class="flex flex-col gap-3 sm:flex-row" action="#" method="post">
+                        <label class="sr-only" for="footer-email">Email</label>
+                        <input
+                            id="footer-email"
+                            type="email"
+                            placeholder="you@example.com"
+                            class="w-full flex-1 rounded-full border border-rose-200 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200"
+                        />
+                        <button
+                            type="submit"
+                            class="rounded-full bg-rose-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-600"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                    <div class="rounded-2xl border border-emerald-100 bg-white/80 p-4 text-sm text-gray-600 shadow-sm">
+                        <p class="font-semibold text-emerald-700">Trust &amp; Security</p>
+                        <p class="mt-1">TLS 1.3 secured checkout • PCI-DSS aligned • Daily risk monitoring</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 flex flex-col gap-6 border-t border-rose-100 pt-6 text-sm text-gray-600 md:flex-row md:items-center md:justify-between">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-500">Payments</span>
+                    <span class="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700">Visa</span>
+                    <span class="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700">Mastercard</span>
+                    <span class="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700">MoMo</span>
+                </div>
+                <p>© 2026 Fresh Flower. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
@@ -122,12 +205,12 @@
         >
             <header class="bg-gradient-to-r from-rose-500 to-emerald-500 px-4 py-3 text-white">
                 <h3 class="font-serif text-lg font-semibold">Smart Flower Consultant</h3>
-                <p class="text-xs text-rose-50">Tu van mau hoa theo dip le va cam xuc cua ban</p>
+                <p class="text-xs text-rose-50">Tư vấn mẫu hoa theo dịp lễ và yêu cầu của bạn</p>
             </header>
 
             <div id="flower-chatbot-messages" class="max-h-80 space-y-3 overflow-y-auto bg-white/80 p-4 text-sm">
                 <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-emerald-50 px-3 py-2 text-emerald-900">
-                    Xin chao, minh la tro ly tu van cua Fresh Flower. Ban muon tim hoa cho dip nao?
+                    Hiii, mình là trợ lý tư vấn mẫu hoa của Fresh Flower. Bạn muốn tìm hoa cho dịp nào?
                 </div>
             </div>
 
@@ -140,7 +223,7 @@
                         name="message"
                         rows="1"
                         maxlength="500"
-                        placeholder="Vi du: Goi y bo hoa cho ky niem ngay cuoi, ngan sach 700k"
+                        placeholder="Ví dụ: Gợi ý bó hoa kỷ niệm ngày cưới, ngân sách 700k"
                         class="max-h-28 min-h-[44px] flex-1 resize-y rounded-xl border border-rose-100 bg-white px-3 py-2 text-sm text-gray-800 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200"
                     ></textarea>
                     <button
