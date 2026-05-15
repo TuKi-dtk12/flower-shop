@@ -10,7 +10,8 @@
     <link href="https://fonts.bunny.net/css?family=montserrat:400,500,600,700|playfair+display:500,600,700&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-emerald-50 text-floral-charcoal antialiased">
+<body class="min-h-screen bg-organic-sage text-floral-charcoal antialiased">
+    <div class="min-h-screen organic-mesh organic-grain">
     @php
         $navCategories = \Illuminate\Support\Facades\Schema::hasTable('categories')
             ? \App\Models\Category::orderBy('name')->get()
@@ -95,31 +96,31 @@
         @yield('content')
     </main>
 
-    <footer class="mt-14 border-t border-rose-100 bg-gradient-to-b from-white via-rose-50/40 to-emerald-50/40">
+    <footer class="mt-14 border-t border-white/10 bg-organic-forest text-white">
         <div class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
             <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
                 <div class="space-y-4">
                     <div>
-                        <p class="font-serif text-2xl font-semibold text-rose-600">Fresh Flower</p>
-                        <p class="mt-2 text-sm text-gray-600">Fresh blooms, curated with care.</p>
+                        <p class="font-serif text-2xl font-semibold text-white">Fresh Flower</p>
+                        <p class="mt-2 text-sm text-white/70">Fresh blooms, curated with care.</p>
                     </div>
-                    <div class="space-y-2 text-sm text-gray-600">
-                        <p><span class="font-medium text-gray-700">Address:</span> 72/34 Dương Đức Hiền, Tây Thạnh, TPHCM</p>
-                        <p><span class="font-medium text-gray-700">Phone:</span> 0866384257</p>
-                        <p><span class="font-medium text-gray-700">Email:</span> tuankiet121305@gmail.com</p>
+                    <div class="space-y-2 text-sm text-white/70">
+                        <p><span class="font-medium text-white">Address:</span> 72/34 Dương Đức Hiền, Tây Thạnh, TPHCM</p>
+                        <p><span class="font-medium text-white">Phone:</span> 0866384257</p>
+                        <p><span class="font-medium text-white">Email:</span> tuankiet121305@gmail.com</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <a href="https://www.facebook.com/tu4nk13t" class="flex h-9 w-9 items-center justify-center rounded-full border border-rose-200 bg-white text-rose-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-rose-50" aria-label="Facebook">
+                        <a href="https://www.facebook.com/tu4nk13t" class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-white/20" aria-label="Facebook">
                             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
                                 <path d="M13.5 8.5V7.2c0-.6.4-1 1-1h1.6V4h-2.2c-2 0-3.4 1.5-3.4 3.6v.9H9v2.4h1.5V20h3v-9.1h2l.4-2.4h-2.4z" />
                             </svg>
                         </a>
-                        <a href="https://www.instagram.com/i_tki3t/" class="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-200 bg-white text-emerald-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-50" aria-label="Instagram">
+                        <a href="https://www.instagram.com/i_tki3t/" class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-white/20" aria-label="Instagram">
                             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
                                 <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm10 2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm4.7-2.3a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                             </svg>
                         </a>
-                        <a href="https://www.tiktok.com/@tu4nki3t?lang=vi-VN" class="flex h-9 w-9 items-center justify-center rounded-full border border-rose-200 bg-white text-rose-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-rose-50" aria-label="TikTok">
+                        <a href="https://www.tiktok.com/@tu4nki3t?lang=vi-VN" class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-white/20" aria-label="TikTok">
                             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
                                 <path d="M16.4 4c.6.8 1.6 1.4 2.6 1.6v2.5c-1.2 0-2.3-.4-3.3-1v6.2a5.4 5.4 0 1 1-5.4-5.4c.3 0 .6 0 .9.1v2.7a2.6 2.6 0 1 0 2.5 2.6V4h2.7z" />
                             </svg>
@@ -128,28 +129,28 @@
                 </div>
 
                 <div class="space-y-3">
-                    <p class="text-sm font-semibold uppercase tracking-wide text-gray-800">Quick Links</p>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="{{ route('about') }}" class="transition hover:text-rose-600">About Us</a></li>
-                        <li><a href="{{ route('products.index') }}" class="transition hover:text-rose-600">All Products</a></li>
-                        <li><a href="{{ route('blog') }}" class="transition hover:text-rose-600">Blog</a></li>
+                    <p class="text-sm font-semibold uppercase tracking-wide text-white">Quick Links</p>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li><a href="{{ route('about') }}" class="transition hover:text-white">About Us</a></li>
+                        <li><a href="{{ route('products.index') }}" class="transition hover:text-white">All Products</a></li>
+                        <li><a href="{{ route('blog') }}" class="transition hover:text-white">Blog</a></li>
                     </ul>
                 </div>
 
                 <div class="space-y-3">
-                    <p class="text-sm font-semibold uppercase tracking-wide text-gray-800">Policies</p>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="{{ route('policies.privacy') }}" class="transition hover:text-emerald-600">Privacy Policy</a></li>
-                        <li><a href="{{ route('policies.delivery') }}" class="transition hover:text-emerald-600">Delivery Policy</a></li>
-                        <li><a href="{{ route('policies.terms') }}" class="transition hover:text-emerald-600">Terms of Service</a></li>
-                        <li><a href="{{ route('policies.refund') }}" class="transition hover:text-emerald-600">Return &amp; Refund</a></li>
+                    <p class="text-sm font-semibold uppercase tracking-wide text-white">Policies</p>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li><a href="{{ route('policies.privacy') }}" class="transition hover:text-white">Privacy Policy</a></li>
+                        <li><a href="{{ route('policies.delivery') }}" class="transition hover:text-white">Delivery Policy</a></li>
+                        <li><a href="{{ route('policies.terms') }}" class="transition hover:text-white">Terms of Service</a></li>
+                        <li><a href="{{ route('policies.refund') }}" class="transition hover:text-white">Return &amp; Refund</a></li>
                     </ul>
                 </div>
 
                 <div class="space-y-4">
                     <div>
-                        <p class="text-sm font-semibold uppercase tracking-wide text-gray-800">Newsletter</p>
-                        <p class="mt-2 text-sm text-gray-600">Subscribe to get 10% off</p>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-white">Newsletter</p>
+                        <p class="mt-2 text-sm text-white/70">Subscribe to get 10% off</p>
                     </div>
                     <form class="flex flex-col gap-3 sm:flex-row" action="#" method="post">
                         <label class="sr-only" for="footer-email">Email</label>
@@ -157,33 +158,34 @@
                             id="footer-email"
                             type="email"
                             placeholder="you@example.com"
-                            class="w-full flex-1 rounded-full border border-rose-200 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200"
+                            class="w-full flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20"
                         />
                         <button
                             type="submit"
-                            class="rounded-full bg-rose-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-600"
+                            class="rounded-full bg-organic-coral px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-organic-crimson"
                         >
                             Subscribe
                         </button>
                     </form>
-                    <div class="rounded-2xl border border-emerald-100 bg-white/80 p-4 text-sm text-gray-600 shadow-sm">
-                        <p class="font-semibold text-emerald-700">Trust &amp; Security</p>
+                    <div class="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-white/70 shadow-sm">
+                        <p class="font-semibold text-white">Trust &amp; Security</p>
                         <p class="mt-1">TLS 1.3 secured checkout • PCI-DSS aligned • Daily risk monitoring</p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-10 flex flex-col gap-6 border-t border-rose-100 pt-6 text-sm text-gray-600 md:flex-row md:items-center md:justify-between">
+            <div class="mt-10 flex flex-col gap-6 border-t border-white/10 pt-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
                 <div class="flex flex-wrap items-center gap-3">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-500">Payments</span>
-                    <span class="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700">Visa</span>
-                    <span class="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700">Mastercard</span>
-                    <span class="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700">MoMo</span>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-white/60">Payments</span>
+                    <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white">Visa</span>
+                    <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white">Mastercard</span>
+                    <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white">MoMo</span>
                 </div>
                 <p>© 2026 Fresh Flower. All rights reserved.</p>
             </div>
         </div>
     </footer>
+    </div>
 
     <div id="flower-chatbot" data-endpoint="{{ route('chat.consult') }}" class="fixed bottom-5 right-5 z-50">
         <button

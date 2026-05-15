@@ -11,14 +11,14 @@
     </div>
 
     <div class="mt-6 grid gap-6 lg:grid-cols-[260px,1fr]">
-        <aside class="floral-glass floral-pattern-mobile rounded-3xl p-5 shadow-sm lg:sticky lg:top-24 lg:h-fit">
+        <aside class="lux-glass rounded-3xl p-6 lg:sticky lg:top-24 lg:h-fit">
             <h2 class="font-serif text-2xl font-semibold text-gray-900">Filter by Category</h2>
             <p class="mt-1 text-xs uppercase tracking-[0.16em] text-gray-500">Quick selection</p>
 
             <div class="mt-4 space-y-2">
-                <a href="{{ route('products.index') }}" class="block rounded-xl px-4 py-2 text-sm font-medium transition {{ empty($categoryId) ? 'bg-rose-500 text-white shadow-sm' : 'border border-rose-200 bg-white text-rose-700 hover:bg-rose-50' }}">All Flowers</a>
+                <a href="{{ route('products.index') }}" class="block rounded-xl px-4 py-2 text-sm font-semibold transition {{ empty($categoryId) ? 'bg-organic-coral text-white shadow-sm' : 'border border-rose-200 bg-white/70 text-rose-700 hover:bg-rose-50' }}">All Flowers</a>
                 @foreach ($categories as $category)
-                    <a href="{{ route('products.index', ['category' => $category->id]) }}" class="block rounded-xl px-4 py-2 text-sm font-medium transition {{ (int) $categoryId === (int) $category->id ? 'bg-emerald-500 text-white shadow-sm' : 'border border-emerald-200 bg-white text-emerald-700 hover:bg-emerald-50' }}">{{ $category->name }}</a>
+                    <a href="{{ route('products.index', ['category' => $category->id]) }}" class="block rounded-xl px-4 py-2 text-sm font-semibold transition {{ (int) $categoryId === (int) $category->id ? 'bg-organic-crimson text-white shadow-sm' : 'border border-emerald-200 bg-white/70 text-emerald-700 hover:bg-emerald-50' }}">{{ $category->name }}</a>
                 @endforeach
             </div>
         </aside>
@@ -29,10 +29,10 @@
                     $isOutOfStock = isset($product->status) && $product->status !== 'active';
                 @endphp
 
-                <article class="group overflow-hidden rounded-3xl border border-rose-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <article class="group overflow-hidden rounded-3xl border border-white/70 bg-white/85 shadow-lg ring-1 ring-rose-100/60 transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
                     <a href="{{ route('products.show', $product) }}" class="relative block overflow-hidden">
                         <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600x400?text=Fresh+Flower' }}" alt="{{ $product->name }}" class="h-64 w-full object-cover transition duration-500 group-hover:scale-105">
-                        <span class="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-rose-600 shadow-sm">{{ number_format($product->price, 0, ',', '.') }} VND</span>
+                        <span class="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-organic-crimson shadow-sm">{{ number_format($product->price, 0, ',', '.') }} VND</span>
                     </a>
 
                     <div class="p-4">
@@ -57,12 +57,12 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="rounded-lg bg-gradient-to-r from-rose-500 to-rose-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:shadow-xl">
+                                    <button type="submit" class="rounded-lg bg-gradient-to-r from-organic-coral to-organic-crimson px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:shadow-xl">
                                         Add to cart
                                     </button>
                                 </form>
                             @else
-                                <a href="{{ route('login') }}" class="translate-y-1 opacity-0 text-xs font-semibold text-rose-600 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">Login to buy</a>
+                                <a href="{{ route('login') }}" class="translate-y-1 opacity-0 text-xs font-semibold text-organic-crimson transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">Login to buy</a>
                             @endif
                         </div>
                     </div>

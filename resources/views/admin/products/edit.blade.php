@@ -52,6 +52,11 @@
             <input type="file" name="images[]" multiple accept="image/jpeg,image/png" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm">
         </div>
 
+        <div class="flex items-center gap-2 text-sm text-gray-600">
+            <input type="checkbox" id="clear-gallery" name="clear_gallery" value="1" class="h-4 w-4 rounded border-gray-300 text-rose-500 focus:ring-rose-200">
+            <label for="clear-gallery">Clear existing gallery before adding new images</label>
+        </div>
+
         <div class="flex flex-wrap gap-2 pt-2">
             <button type="submit" class="rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600">Save changes</button>
             <a href="{{ route('admin.products.index') }}" class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50">Back</a>

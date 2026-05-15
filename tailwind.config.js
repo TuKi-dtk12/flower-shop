@@ -18,6 +18,15 @@ export default {
                     charcoal: '#2a2a2a',
                     mist: '#f6f7f5',
                 },
+                organic: {
+                    sage: '#f0f4f2',
+                    rose: '#fdf2f4',
+                    cream: '#fbf7f0',
+                    forest: '#1a2e26',
+                    charcoal: '#18221e',
+                    coral: '#e5535f',
+                    crimson: '#b12b3f',
+                },
             },
             fontFamily: {
                 sans: ['Montserrat', ...defaultTheme.fontFamily.sans],

@@ -26,7 +26,10 @@ class Product extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class)
+            ->whereNotNull('image_path')
+            ->where('image_path', '!=', '')
+            ->orderBy('id');
     }
 
     public function orderItems(): HasMany

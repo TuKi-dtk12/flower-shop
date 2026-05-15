@@ -13,7 +13,10 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Product::with('category')->latest()->paginate(10);
+        $products = Product::with('category')
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -35,6 +38,7 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png|max:2048',
+            'clear_gallery' => 'sometimes|boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -45,7 +49,14 @@ class ProductController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
+                if (!$file || !$file->isValid()) {
+                    continue;
+                }
                 $path = $file->store('products/gallery', 'public');
+                $path = $this->sanitizeStoragePath($path);
+                if ($path === '') {
+                    continue;
+                }
                 $product->images()->create(['image_path' => $path]);
             }
         }
@@ -72,20 +83,42 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png|max:2048',
+            'clear_gallery' => 'sometimes|boolean',
         ]);
 
         if ($request->hasFile('image')) {
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                $path = $this->sanitizeStoragePath($product->image);
+                if ($path !== '') {
+                    Storage::disk('public')->delete($path);
+                }
             }
             $validated['image'] = $request->file('image')->store('products', 'public');
         }
 
         $product->update($validated);
 
+        if ($request->boolean('clear_gallery')) {
+            $product->load('images');
+            foreach ($product->images as $image) {
+                $path = $this->sanitizeStoragePath($image->image_path);
+                if ($path !== '') {
+                    Storage::disk('public')->delete($path);
+                }
+            }
+            $product->images()->delete();
+        }
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
+                if (!$file || !$file->isValid()) {
+                    continue;
+                }
                 $path = $file->store('products/gallery', 'public');
+                $path = $this->sanitizeStoragePath($path);
+                if ($path === '') {
+                    continue;
+                }
                 $product->images()->create(['image_path' => $path]);
             }
         }
@@ -97,16 +130,34 @@ class ProductController extends Controller
     public function destroy(Product $product): RedirectResponse
     {
         if ($product->image) {
-            Storage::disk('public')->delete($product->image);
+            $path = $this->sanitizeStoragePath($product->image);
+            if ($path !== '') {
+                Storage::disk('public')->delete($path);
+            }
         }
 
         foreach ($product->images as $image) {
-            Storage::disk('public')->delete($image->image_path);
+            $path = $this->sanitizeStoragePath($image->image_path);
+            if ($path !== '') {
+                Storage::disk('public')->delete($path);
+            }
         }
 
         $product->delete();
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product deleted successfully.');
+    }
+
+    private function sanitizeStoragePath(?string $path): string
+    {
+        $path = trim((string) $path);
+        if ($path === '') {
+            return '';
+        }
+
+        $path = str_replace(['..', '\\'], '', $path);
+
+        return ltrim($path, '/');
     }
 }
