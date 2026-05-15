@@ -148,25 +148,6 @@
                 </div>
 
                 <div class="space-y-4">
-                    <div>
-                        <p class="text-sm font-semibold uppercase tracking-wide text-white">Newsletter</p>
-                        <p class="mt-2 text-sm text-white/70">Subscribe to get 10% off</p>
-                    </div>
-                    <form class="flex flex-col gap-3 sm:flex-row" action="#" method="post">
-                        <label class="sr-only" for="footer-email">Email</label>
-                        <input
-                            id="footer-email"
-                            type="email"
-                            placeholder="you@example.com"
-                            class="w-full flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20"
-                        />
-                        <button
-                            type="submit"
-                            class="rounded-full bg-organic-coral px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-organic-crimson"
-                        >
-                            Subscribe
-                        </button>
-                    </form>
                     <div class="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-white/70 shadow-sm">
                         <p class="font-semibold text-white">Trust &amp; Security</p>
                         <p class="mt-1">TLS 1.3 secured checkout • PCI-DSS aligned • Daily risk monitoring</p>
