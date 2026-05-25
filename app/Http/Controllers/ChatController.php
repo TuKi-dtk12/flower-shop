@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -35,8 +34,7 @@ class ChatController extends Controller
             ], 503);
         }
 
-        $catalogText = $this->buildCatalogContext();
-        $productLinksText = $this->buildProductLinkContext();
+        $catalogText = $this->buildCompactCatalog();
 
         $payload = [
             'system_instruction' => [
@@ -48,7 +46,7 @@ class ChatController extends Controller
                             "1. Luôn giới thiệu ít nhất 2 mẫu hoa cụ thể kèm giá.\n" .
                             "2. Nếu khách có ngân sách, chỉ lọc hoa trong tầm giá đó.\n" .
                             "3. Trả lời bằng tiếng Việt, phong cách lịch sự, ấm áp.\n" .
-                            "4. BẮT BUỘC dùng thẻ HTML <a> để gắn link sản phẩm theo cấu trúc: " .
+                            "4. BẮT BUỘC dùng thẻ HTML <a> dựa vào {id} của sản phẩm để tự thiết lập href=\"/products/{id}\" theo cấu trúc: " .
                             "<a href=\"/products/{id}\" class=\"text-pink-600 font-semibold hover:underline\" target=\"_blank\">{ten_san_pham}</a>.\n" .
                             "5. Chỉ được gợi ý sản phẩm có thật trong danh sách được cung cấp.\n\n" .
                             "6. Khi liệt kê danh sách sản phẩm gợi ý, BẮT BUỘC phải xuống dòng rõ ràng bằng ký tự \\\n\\\n giữa các mục. " .
@@ -57,8 +55,7 @@ class ChatController extends Controller
                             "2. [Link sản phẩm] (Giá): Mô tả ngắn...\n" .
                             "Tuyệt đối không viết liền mạch các mục trong cùng một đoạn văn.\n\n" .
                             "Tuyệt đối KHÔNG sử dụng ký tự gạch chéo ngược (\\) để phân tách các dòng hoặc các mục. Chỉ sử dụng nút Enter xuống dòng bình thường.\n\n" .
-                            "Danh sách sản phẩm hiện có:\n{$catalogText}\n\n" .
-                            "Danh sách ID va link mau hoa:\n{$productLinksText}"
+                            "Danh sách sản phẩm hiện có:\n{$catalogText}"
                     ]
                 ]
             ],
@@ -139,7 +136,7 @@ class ChatController extends Controller
         }, $reply) ?? $reply;
     }
 
-    private function buildCatalogContext(): string
+    private function buildCompactCatalog(): string
     {
         $categories = Category::query()
             ->select(['id', 'name'])
@@ -162,35 +159,15 @@ class ChatController extends Controller
                     ->map(function ($product): string {
                         $price = number_format((float) $product->price, 0, ',', '.');
 
-                        return "{$product->name} ({$price} VND)";
+                        return "   - [ID: {$product->id}] {$product->name} ({$price} VND)";
                     })
-                    ->implode('; ');
+                    ->implode("\n");
 
                 if ($products === '') {
                     return "- {$category->name}: Chua co san pham.";
                 }
 
-                return "- {$category->name}: {$products}";
-            })
-            ->implode("\n");
-    }
-
-    private function buildProductLinkContext(): string
-    {
-        $products = Product::query()
-            ->select(['id', 'name', 'price'])
-            ->orderBy('name')
-            ->get();
-
-        if ($products->isEmpty()) {
-            return '- Hien chua co du lieu san pham.';
-        }
-
-        return $products
-            ->map(function (Product $product): string {
-                $price = number_format((float) $product->price, 0, ',', '.');
-
-                return "- [{$product->id}] {$product->name} ({$price} VND) -> /products/{$product->id}";
+                return "- {$category->name}\n{$products}";
             })
             ->implode("\n");
     }

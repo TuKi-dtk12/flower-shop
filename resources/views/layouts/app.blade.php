@@ -47,6 +47,9 @@
                         <a href="{{ route('admin.orders.index') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold/90 transition hover:bg-lux-gold/10">
                             Đơn hàng
                         </a>
+                        <a href="{{ route('admin.payment-settings.edit') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold/90 transition hover:bg-lux-gold/10">
+                            Thanh toán
+                        </a>
                     @endif
 
                     <a href="{{ route('cart.index') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold transition hover:bg-lux-gold/10">

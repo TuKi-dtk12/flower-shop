@@ -4,6 +4,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentSettingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
@@ -21,16 +23,18 @@ Route::get('/', function () {
 
 Route::get('/products', function () {
     $categoryId = request('category');
+    $search = trim(strip_tags((string) request('search')));
 
     $products = Product::with('category')
         ->when($categoryId, fn ($query) => $query->where('category_id', $categoryId))
+        ->when($search, fn ($query, $term) => $query->where('name', 'like', '%' . $term . '%'))
         ->latest()
         ->paginate(12)
         ->withQueryString();
 
     $categories = Category::orderBy('name')->get();
 
-    return view('products.index', compact('products', 'categories', 'categoryId'));
+    return view('products.index', compact('products', 'categories', 'categoryId', 'search'));
 })->name('products.index');
 
 Route::get('/products/{product}', function (Product $product) {
@@ -95,6 +99,10 @@ Route::middleware('auth')->group(function () {
         return view('checkout', compact('cart', 'total'));
     })->name('checkout.index');
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
+
+    // Payment routes
+    Route::get('/orders/{order}/payment', [PaymentController::class, 'show'])->name('payment.show');
+    Route::post('/orders/{order}/payment/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
 });
 
 Route::middleware(['auth', 'admin'])
@@ -106,7 +114,12 @@ Route::middleware(['auth', 'admin'])
 
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
         Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+        Route::patch('/orders/{order}/payment-status', [OrderController::class, 'updatePaymentStatus'])->name('orders.update-payment-status');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+        // Payment settings
+        Route::get('/payment-settings', [PaymentSettingController::class, 'edit'])->name('payment-settings.edit');
+        Route::put('/payment-settings', [PaymentSettingController::class, 'update'])->name('payment-settings.update');
     });
 
 require __DIR__.'/auth.php';

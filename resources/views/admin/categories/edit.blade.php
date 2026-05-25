@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto max-w-2xl rounded-3xl border border-rose-100 bg-white p-6 shadow-sm">
-    <h1 class="font-['Playfair_Display'] text-3xl font-semibold text-gray-900">Admin - Edit Category</h1>
+<div class="mx-auto max-w-2xl rounded-3xl border border-white/5 bg-lux-card p-6 shadow-sm">
+    <h1 class="font-serif text-3xl font-semibold text-lux-gold">Chỉnh sửa danh mục</h1>
 
     @if ($errors->any())
-        <div class="mt-4 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div class="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
             <ul class="list-disc pl-5">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -19,13 +19,13 @@
         @method('PATCH')
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">Category name</label>
-            <input type="text" name="name" value="{{ old('name', $category->name) }}" required class="w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-rose-400 focus:outline-none" placeholder="Birthday Flowers">
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Tên danh mục</label>
+            <input type="text" name="name" value="{{ old('name', $category->name) }}" required class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text placeholder-lux-text/40 transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40" placeholder="Hoa sinh nhật">
         </div>
 
         <div class="flex flex-wrap gap-2 pt-2">
-            <button type="submit" class="rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600">Save changes</button>
-            <a href="{{ route('admin.categories.index') }}" class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50">Back</a>
+            <button type="submit" class="rounded-lg bg-lux-gold px-5 py-2.5 text-sm font-semibold text-lux-bg transition hover:shadow-lg active:scale-[0.98]">Lưu thay đổi</button>
+            <a href="{{ route('admin.categories.index') }}" class="rounded-lg border border-white/10 px-5 py-2.5 text-sm font-semibold text-lux-text/70 transition hover:bg-white/5">Quay lại</a>
         </div>
     </form>
 </div>

@@ -56,34 +56,56 @@ class OrderController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $validated = $request->validate([
+            'shipping_name'    => 'required|string|max:255',
+            'shipping_phone'   => 'required|string|max:20',
+            'shipping_email'   => 'required|email|max:255',
+            'shipping_address' => 'required|string|max:1000',
+            'note'             => 'nullable|string|max:500',
+            'payment_method'   => 'required|in:cod,bank_transfer',
+        ]);
+
         $cart = session()->get('cart', []);
 
         if (empty($cart)) {
-            return back()->with('error', 'Your cart is empty.');
+            return back()->with('error', 'Giỏ hàng trống.');
         }
 
-        DB::transaction(function () use ($request, $cart): void {
+        $order = null;
+
+        DB::transaction(function () use ($request, $cart, $validated, &$order): void {
             $totalPrice = collect($cart)
                 ->sum(fn (array $item) => $item['price'] * $item['quantity']);
 
             $order = Order::create([
-                'user_id' => $request->user()->id,
-                'total_price' => $totalPrice,
-                'status' => 'pending',
+                'user_id'          => $request->user()->id,
+                'total_price'      => $totalPrice,
+                'status'           => 'pending',
+                'shipping_name'    => $validated['shipping_name'],
+                'shipping_phone'   => $validated['shipping_phone'],
+                'shipping_email'   => $validated['shipping_email'],
+                'shipping_address' => $validated['shipping_address'],
+                'note'             => $validated['note'] ?? null,
+                'payment_method'   => $validated['payment_method'],
+                'payment_status'   => 'pending',
             ]);
 
             foreach ($cart as $item) {
                 $order->items()->create([
                     'product_id' => $item['product_id'],
-                    'quantity' => $item['quantity'],
-                    'price' => $item['price'],
+                    'quantity'   => $item['quantity'],
+                    'price'      => $item['price'],
                 ]);
             }
         });
 
         session()->forget('cart');
 
-        return redirect()->route('orders.index')->with('success', 'Order placed successfully.');
+        if ($validated['payment_method'] === 'bank_transfer' && $order) {
+            return redirect()->route('payment.show', $order);
+        }
+
+        return redirect()->route('orders.index')->with('success', 'Đặt hàng thành công!');
     }
 
     public function update(Request $request, Order $order): RedirectResponse
@@ -94,13 +116,27 @@ class OrderController extends Controller
 
         $order->update(['status' => $validated['status']]);
 
-        return back()->with('success', 'Order status updated successfully.');
+        return back()->with('success', 'Cập nhật trạng thái đơn hàng thành công.');
+    }
+
+    /**
+     * Admin confirms or rejects payment status.
+     */
+    public function updatePaymentStatus(Request $request, Order $order): RedirectResponse
+    {
+        $validated = $request->validate([
+            'payment_status' => 'required|string|in:pending,paid,failed',
+        ]);
+
+        $order->update(['payment_status' => $validated['payment_status']]);
+
+        return back()->with('success', 'Cập nhật trạng thái thanh toán đơn hàng #' . $order->id . ' thành công.');
     }
 
     public function destroy(Order $order): RedirectResponse
     {
         $order->delete();
 
-        return back()->with('success', 'Order deleted successfully.');
+        return back()->with('success', 'Xóa đơn hàng thành công.');
     }
 }

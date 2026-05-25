@@ -1,11 +1,11 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
-<div class="mx-auto max-w-3xl rounded-3xl border border-rose-100 bg-white p-6 shadow-sm">
-    <h1 class="font-['Playfair_Display'] text-3xl font-semibold text-gray-900">Admin - Edit Product</h1>
+<div class="mx-auto max-w-3xl rounded-3xl border border-white/5 bg-lux-card p-6 shadow-sm">
+    <h1 class="font-serif text-3xl font-semibold text-lux-gold">Chỉnh sửa sản phẩm</h1>
 
     @if ($errors->any())
-        <div class="mt-4 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div class="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
             <ul class="list-disc pl-5">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -19,8 +19,8 @@
         @method('PATCH')
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">Category</label>
-            <select name="category_id" required class="w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-rose-400 focus:outline-none">
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Danh mục</label>
+            <select name="category_id" required class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40">
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}" {{ (int) old('category_id', $product->category_id) === $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                 @endforeach
@@ -28,38 +28,38 @@
         </div>
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">Product name</label>
-            <input type="text" name="name" value="{{ old('name', $product->name) }}" required class="w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-rose-400 focus:outline-none">
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Tên sản phẩm</label>
+            <input type="text" name="name" value="{{ old('name', $product->name) }}" required class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text placeholder-lux-text/40 transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40">
         </div>
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">Price (VND)</label>
-            <input type="number" name="price" min="0" step="0.01" value="{{ old('price', $product->price) }}" required class="w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-rose-400 focus:outline-none">
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Giá (VND)</label>
+            <input type="number" name="price" min="0" step="0.01" value="{{ old('price', $product->price) }}" required class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text placeholder-lux-text/40 transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40">
         </div>
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">Description</label>
-            <textarea name="description" rows="4" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-rose-400 focus:outline-none">{{ old('description', $product->description) }}</textarea>
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Mô tả</label>
+            <textarea name="description" rows="4" class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text placeholder-lux-text/40 transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40">{{ old('description', $product->description) }}</textarea>
         </div>
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">New main image (jpeg/png, max 2MB)</label>
-            <input type="file" name="image" accept="image/jpeg,image/png" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm">
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Ảnh chính mới (jpeg/png, tối đa 2MB)</label>
+            <input type="file" name="image" accept="image/jpeg,image/png" class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-sm text-lux-text/70 file:mr-3 file:rounded-lg file:border-0 file:bg-lux-gold/10 file:px-3 file:py-1 file:text-sm file:font-semibold file:text-lux-gold">
         </div>
 
         <div>
-            <label class="mb-1 block text-sm font-medium text-gray-700">Add gallery images</label>
-            <input type="file" name="images[]" multiple accept="image/jpeg,image/png" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm">
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Thêm ảnh bộ sưu tập</label>
+            <input type="file" name="images[]" multiple accept="image/jpeg,image/png" class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-sm text-lux-text/70 file:mr-3 file:rounded-lg file:border-0 file:bg-lux-gold/10 file:px-3 file:py-1 file:text-sm file:font-semibold file:text-lux-gold">
         </div>
 
-        <div class="flex items-center gap-2 text-sm text-gray-600">
-            <input type="checkbox" id="clear-gallery" name="clear_gallery" value="1" class="h-4 w-4 rounded border-gray-300 text-rose-500 focus:ring-rose-200">
-            <label for="clear-gallery">Clear existing gallery before adding new images</label>
+        <div class="flex items-center gap-2 text-sm text-lux-text/60">
+            <input type="checkbox" id="clear-gallery" name="clear_gallery" value="1" class="h-4 w-4 rounded border-white/20 bg-lux-bg text-lux-gold focus:ring-lux-gold/30">
+            <label for="clear-gallery">Xóa bộ sưu tập cũ trước khi thêm ảnh mới</label>
         </div>
 
         <div class="flex flex-wrap gap-2 pt-2">
-            <button type="submit" class="rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600">Save changes</button>
-            <a href="{{ route('admin.products.index') }}" class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50">Back</a>
+            <button type="submit" class="rounded-lg bg-lux-gold px-5 py-2.5 text-sm font-semibold text-lux-bg transition hover:shadow-lg active:scale-[0.98]">Lưu thay đổi</button>
+            <a href="{{ route('admin.products.index') }}" class="rounded-lg border border-white/10 px-5 py-2.5 text-sm font-semibold text-lux-text/70 transition hover:bg-white/5">Quay lại</a>
         </div>
     </form>
 </div>
