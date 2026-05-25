@@ -4,10 +4,10 @@
     <section class="rounded-3xl border border-rose-100 bg-white/80 p-8 shadow-sm">
         <div class="mx-auto max-w-3xl space-y-6 text-gray-700">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-400">Giới thiệu Fresh Flower</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-400">Giới thiệu Tuki Fresh Flower</p>
                 <h1 class="mt-2 font-serif text-3xl font-semibold text-rose-600">Xưởng hoa cho quà tặng hiện đại</h1>
                 <p class="mt-3 text-base text-gray-600">
-                    Fresh Flower tuyển chọn các bó hoa theo mùa với câu chuyện màu sắc tinh tế, gói ghém trang nhã và cảm giác cao cấp
+                    Tuki Fresh Flower tuyển chọn các bó hoa theo mùa với câu chuyện màu sắc tinh tế, gói ghém trang nhã và cảm giác cao cấp
                     nhẹ nhàng. Chúng tôi thiết kế cho sinh nhật, cưới hỏi, kỷ niệm và mọi khoảnh khắc ý nghĩa.
                 </p>
             </div>

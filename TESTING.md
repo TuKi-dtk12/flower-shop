@@ -2,7 +2,7 @@
 
 ## 1. Testing Overview
 
-Phase 6 focuses on **functional correctness** and **security validation** for the Fresh Flower Selling Website (Laravel 11).
+Phase 6 focuses on **functional correctness** and **security validation** for the Tuki Fresh Flower Selling Website (Laravel 11).
 
 ### Goals
 

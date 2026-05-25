@@ -23,11 +23,11 @@
         </div>
 
         <div class="p-6 sm:p-8">
-            <p class="text-sm font-semibold uppercase tracking-wide text-emerald-600">{{ $product->category->name ?? 'Flower' }}</p>
+            <p class="text-sm font-semibold uppercase tracking-wide text-emerald-600">{{ $product->category->name ?? 'Hoa' }}</p>
             <h1 class="mt-2 font-['Playfair_Display'] text-4xl font-semibold text-gray-900">{{ $product->name }}</h1>
             <p class="mt-3 text-2xl font-semibold text-rose-600">{{ number_format($product->price, 0, ',', '.') }} VND</p>
 
-            <p class="mt-5 leading-relaxed text-gray-600">{{ $product->description ?: 'Freshly designed floral arrangement for meaningful moments.' }}</p>
+            <p class="mt-5 leading-relaxed text-gray-600">{{ $product->description ?: 'Bó hoa được thiết kế tinh tế cho những khoảnh khắc ý nghĩa.' }}</p>
 
             <div class="mt-6 flex flex-wrap gap-3">
                 @auth
@@ -35,13 +35,13 @@
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="number" name="quantity" min="1" value="1" class="w-20 rounded-lg border border-gray-300 px-3 py-2 text-sm">
-                        <button type="submit" class="rounded-lg bg-rose-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-600">Add to Cart</button>
+                        <button type="submit" class="rounded-lg bg-rose-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-600">Thêm vào giỏ hàng</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="rounded-lg bg-rose-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-600">Login to purchase</a>
+                    <a href="{{ route('login') }}" class="rounded-lg bg-rose-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-600">Đăng nhập để mua</a>
                 @endauth
 
-                <a href="{{ route('products.index') }}" class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50">Back to list</a>
+                <a href="{{ route('products.index') }}" class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50">Quay lại danh sách</a>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
 
 <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4">
     <button id="lightbox-close" type="button" class="absolute right-5 top-5 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-sm font-semibold text-white transition hover:bg-white/20">
-        Close
+        Đóng
     </button>
     <img id="lightbox-image" src="" alt="{{ $product->name }}" class="max-h-full max-w-full object-contain">
 </div>

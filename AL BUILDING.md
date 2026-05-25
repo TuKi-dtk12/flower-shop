@@ -2,7 +2,7 @@
 
 ## 1. Muc tieu
 
-Tai lieu nay ghi lai cac buoc build va chay project Fresh Flower Selling Website tren moi truong local.
+Tai lieu nay ghi lai cac buoc build va chay project Tuki Fresh Flower Selling Website tren moi truong local.
 
 ## 2. Yeu cau he thong
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -35,20 +36,29 @@ class ChatController extends Controller
         }
 
         $catalogText = $this->buildCatalogContext();
-
-        $systemInstruction = 'Bạn là nhân viên bán hoa thông minh. Khi khách hàng hỏi, bạn BẮT BUỘC phải chọn ra ít nhất 2-3 sản phẩm từ danh sách dưới đây để giới thiệu. Phải nêu rõ Tên hoa và Giá tiền. Nếu ngân sách của khách không đủ cho mẫu nào, hãy khéo léo giới thiệu mẫu rẻ nhất.';
+        $productLinksText = $this->buildProductLinkContext();
 
         $payload = [
             'system_instruction' => [
                 'parts' => [
                     [
-                        'text' => "Bạn là chuyên gia tư vấn của shop hoa Fresh Flower. " .
-                                "Nhiệm vụ: Dựa vào danh sách sản phẩm dưới đây để gợi ý hoa. " .
-                                "Quy tắc: \n" .
-                                "1. Luôn giới thiệu ít nhất 2 mẫu hoa cụ thể kèm giá.\n" .
-                                "2. Nếu khách có ngân sách, chỉ lọc hoa trong tầm giá đó.\n" .
-                                "3. Trả lời bằng tiếng Việt, phong cách lịch sự, ấm áp.\n\n" .
-                                "Danh sách sản phẩm hiện có:\n{$catalogText}"
+                        'text' => "Bạn là trợ lý ảo của Tuki Fresh Flower. " .
+                            "Nhiệm vụ: Dựa vào danh sách sản phẩm dưới đây để gợi ý hoa. " .
+                            "Quy tắc: \n" .
+                            "1. Luôn giới thiệu ít nhất 2 mẫu hoa cụ thể kèm giá.\n" .
+                            "2. Nếu khách có ngân sách, chỉ lọc hoa trong tầm giá đó.\n" .
+                            "3. Trả lời bằng tiếng Việt, phong cách lịch sự, ấm áp.\n" .
+                            "4. BẮT BUỘC dùng thẻ HTML <a> để gắn link sản phẩm theo cấu trúc: " .
+                            "<a href=\"/products/{id}\" class=\"text-pink-600 font-semibold hover:underline\" target=\"_blank\">{ten_san_pham}</a>.\n" .
+                            "5. Chỉ được gợi ý sản phẩm có thật trong danh sách được cung cấp.\n\n" .
+                            "6. Khi liệt kê danh sách sản phẩm gợi ý, BẮT BUỘC phải xuống dòng rõ ràng bằng ký tự \\\n\\\n giữa các mục. " .
+                            "Mỗi mục phải có định dạng rõ ràng, ví dụ:\n" .
+                            "1. [Link sản phẩm] (Giá): Mô tả ngắn...\n" .
+                            "2. [Link sản phẩm] (Giá): Mô tả ngắn...\n" .
+                            "Tuyệt đối không viết liền mạch các mục trong cùng một đoạn văn.\n\n" .
+                            "Tuyệt đối KHÔNG sử dụng ký tự gạch chéo ngược (\\) để phân tách các dòng hoặc các mục. Chỉ sử dụng nút Enter xuống dòng bình thường.\n\n" .
+                            "Danh sách sản phẩm hiện có:\n{$catalogText}\n\n" .
+                            "Danh sách ID va link mau hoa:\n{$productLinksText}"
                     ]
                 ]
             ],
@@ -62,11 +72,11 @@ class ChatController extends Controller
             ],
             'generationConfig' => [
                 'temperature' => 0.8, // Tăng nhẹ để AI tư vấn "bay bổng" hơn một chút
-                'maxOutputTokens' => 1500, // Tăng lên để tránh bị cắt cụt câu trả lời
+                'maxOutputTokens' => 2000, // Tăng lên để tránh bị cắt cụt câu trả lời
             ],
         ];
 
-        $response = Http::timeout(20)
+        $response = Http::timeout(30)
             ->acceptJson()
             ->post("{$baseUrl}/{$model}:generateContent?key=" . urlencode($apiKey), $payload);
 
@@ -95,14 +105,38 @@ class ChatController extends Controller
         }
 
         $reply = trim((string) data_get($response->json(), 'candidates.0.content.parts.0.text', ''));
+        $reply = str_replace('\\', '', $reply);
 
         if ($reply === '') {
             $reply = 'Minh da nhan duoc yeu cau, nhung chua the tao goi y luc nay. Ban thu mo ta ro hon dip le, mau sac yeu thich hoac ngan sach nhe.';
         }
 
         return response()->json([
-            'reply' => $reply,
+            'reply' => $this->sanitizeAiReply($reply),
         ]);
+    }
+
+    private function sanitizeAiReply(string $reply): string
+    {
+        $reply = trim($reply);
+        if ($reply === '') {
+            return '';
+        }
+
+        $reply = strip_tags($reply, '<a>');
+
+        return preg_replace_callback('/<a\s+[^>]*href=("|\")([^"\"]+)("|\")[^>]*>(.*?)<\/a>/i', function (array $matches): string {
+            $href = $matches[2] ?? '';
+            $text = strip_tags($matches[4] ?? '');
+
+            if (!preg_match('/^\/products\/\d+$/', $href)) {
+                return $text;
+            }
+
+            $safeText = e($text);
+
+            return '<a href="' . $href . '" class="text-pink-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">' . $safeText . '</a>';
+        }, $reply) ?? $reply;
     }
 
     private function buildCatalogContext(): string
@@ -137,6 +171,26 @@ class ChatController extends Controller
                 }
 
                 return "- {$category->name}: {$products}";
+            })
+            ->implode("\n");
+    }
+
+    private function buildProductLinkContext(): string
+    {
+        $products = Product::query()
+            ->select(['id', 'name', 'price'])
+            ->orderBy('name')
+            ->get();
+
+        if ($products->isEmpty()) {
+            return '- Hien chua co du lieu san pham.';
+        }
+
+        return $products
+            ->map(function (Product $product): string {
+                $price = number_format((float) $product->price, 0, ',', '.');
+
+                return "- [{$product->id}] {$product->name} ({$price} VND) -> /products/{$product->id}";
             })
             ->implode("\n");
     }

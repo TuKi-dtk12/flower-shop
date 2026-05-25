@@ -20,7 +20,7 @@
                 </a>
                 <a href="{{ route('policies.terms') }}" class="rounded-2xl border border-rose-100 bg-white p-4 transition hover:-translate-y-0.5">
                     <p class="text-sm font-semibold text-gray-800">Điều khoản dịch vụ</p>
-                    <p class="mt-2 text-sm text-gray-600">Các điều khoản áp dụng khi mua sắm tại Fresh Flower.</p>
+                    <p class="mt-2 text-sm text-gray-600">Các điều khoản áp dụng khi mua sắm tại Tuki Fresh Flower.</p>
                 </a>
                 <a href="{{ route('policies.refund') }}" class="rounded-2xl border border-emerald-100 bg-white p-4 transition hover:-translate-y-0.5">
                     <p class="text-sm font-semibold text-gray-800">Đổi trả &amp; hoàn tiền</p>

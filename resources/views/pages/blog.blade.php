@@ -4,7 +4,7 @@
     <section class="rounded-3xl border border-rose-100 bg-white/80 p-8 shadow-sm">
         <div class="mx-auto max-w-4xl space-y-8">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-400">Nhật ký Fresh Flower</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-400">Nhật ký Tuki Fresh Flower</p>
                 <h1 class="mt-2 font-serif text-3xl font-semibold text-rose-600">Câu chuyện, mẹo chăm hoa và cảm hứng</h1>
                 <p class="mt-2 text-sm text-gray-600">Bài viết mới sẽ sớm xuất hiện. Tạm thời, hãy xem các chủ đề nổi bật.</p>
             </div>

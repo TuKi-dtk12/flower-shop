@@ -5,114 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ __('Register') }} - {{ config('app.name', 'Fresh Flower') }}</title>
+    <title>{{ __('Register') }} - {{ config('app.name', 'Tuki Fresh Flower') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=playfair+display:500,600,700|figtree:400,500,600,700&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-rose-50 text-gray-800 antialiased">
-    <div class="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_8%_18%,rgba(251,207,232,0.5),transparent_35%),radial-gradient(circle_at_92%_82%,rgba(134,239,172,0.35),transparent_33%),linear-gradient(180deg,#fff7fa_0%,#ffffff_50%,#f0fdf4_100%)] lg:grid lg:grid-cols-2">
+<body class="min-h-screen bg-lux-bg text-lux-text antialiased">
+    <div class="relative min-h-screen overflow-hidden bg-lux-bg lg:grid lg:grid-cols-2">
         <aside class="relative hidden h-screen lg:block">
             <img
                 src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?auto=format&fit=crop&w=1800&q=80"
                 alt="Floral luxury arrangement"
                 class="h-full w-full object-cover"
             >
-            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/35 via-rose-900/20 to-rose-900/35"></div>
+            <div class="absolute inset-0 bg-gradient-to-tr from-black/55 via-emerald-900/25 to-black/55"></div>
 
             <div class="absolute bottom-10 left-10 right-10 rounded-3xl border border-white/30 bg-white/15 p-8 text-white backdrop-blur-md">
-                <p class="mb-3 text-xs uppercase tracking-[0.28em] text-rose-100">Luxury Membership</p>
-                <h2 class="font-['Playfair_Display'] text-4xl font-semibold leading-tight">Start Your Floral Story With Us</h2>
-                <p class="mt-4 text-sm text-rose-50/90">Create an account to enjoy curated bouquets, quick checkout, and personalized gifting.</p>
+                <p class="mb-3 text-xs uppercase tracking-[0.28em] text-lux-gold/90">Luxury Membership</p>
+                <h2 class="font-['Playfair_Display'] text-4xl font-semibold leading-tight">Bắt Đầu Hành Trình Hoa Tươi Của Bạn Cùng Chúng Tôi</h2>
+                <p class="mt-4 text-sm text-lux-text/80">Tạo tài khoản để tận hưởng những bó hoa tuyển chọn, thanh toán nhanh và quà tặng cá nhân hóa.</p>
             </div>
         </aside>
 
-        <section class="relative flex min-h-screen items-center justify-center px-6 py-10 sm:px-8 lg:px-12">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_100%_5%,rgba(244,114,182,0.14),transparent_46%),radial-gradient(circle_at_0%_100%,rgba(16,185,129,0.15),transparent_44%)] lg:hidden"></div>
+        <section class="relative flex min-h-screen items-center justify-center bg-lux-bg px-6 py-10 sm:px-8 lg:px-12">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_100%_5%,rgba(229,192,123,0.12),transparent_46%),radial-gradient(circle_at_0%_100%,rgba(16,185,129,0.15),transparent_44%)] lg:hidden"></div>
 
-            <div class="relative w-full max-w-md rounded-3xl border border-white/60 bg-white/60 p-7 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.4)] backdrop-blur-xl sm:p-9">
+            <div class="relative w-full max-w-md rounded-3xl border border-white/5 bg-lux-card p-7 shadow-2xl sm:p-9">
                 <div class="mb-7">
-                    <a href="{{ route('home') }}" class="inline-block font-['Playfair_Display'] text-3xl font-semibold text-rose-600">
-                        Fresh Flower
+                    <a href="{{ route('home') }}" class="inline-block font-['Playfair_Display'] text-3xl font-semibold text-lux-gold">
+                        Tuki Fresh Flower
                     </a>
-                    <h1 class="mt-5 font-['Playfair_Display'] text-4xl font-semibold text-slate-900">Create Account</h1>
-                    <p class="mt-2 text-sm text-slate-600">Join our floral boutique and make every celebration effortlessly elegant.</p>
+                    <h1 class="mt-5 font-['Playfair_Display'] text-4xl font-semibold text-lux-text">Đăng Ký Tài Khoản</h1>
+                    <p class="mt-2 text-sm text-lux-text/70">Gia nhập Tuki Fresh Flower để trải nghiệm dịch vụ hoa tươi cao cấp.</p>
                 </div>
 
                 <form method="POST" action="{{ route('register') }}" class="space-y-5">
                     @csrf
 
                     <div>
-                        <x-input-label for="name" :value="__('Name')" class="text-sm font-medium text-slate-700" />
+                        <x-input-label for="name" :value="__('Họ và tên')" class="text-sm font-medium text-lux-text/80" />
                         <x-text-input
                             id="name"
-                            class="mt-2 block w-full rounded-xl border border-rose-100/80 bg-white/85 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-300 focus:ring-rose-200"
+                            class="mt-2 block w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-3 text-sm text-lux-text placeholder:text-lux-text/50 focus:border-lux-gold focus:ring-lux-gold/30"
                             type="text"
                             name="name"
                             :value="old('name')"
                             required
                             autofocus
                             autocomplete="name"
-                            placeholder="Your full name"
+                            placeholder="Ho va ten"
                         />
-                        <x-input-error :messages="$errors->get('name')" class="mt-2 text-sm text-rose-600" />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2 text-sm text-rose-200" />
                     </div>
 
                     <div>
-                        <x-input-label for="email" :value="__('Email')" class="text-sm font-medium text-slate-700" />
+                        <x-input-label for="email" :value="__('Địa chỉ Email')" class="text-sm font-medium text-lux-text/80" />
                         <x-text-input
                             id="email"
-                            class="mt-2 block w-full rounded-xl border border-rose-100/80 bg-white/85 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-300 focus:ring-rose-200"
+                            class="mt-2 block w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-3 text-sm text-lux-text placeholder:text-lux-text/50 focus:border-lux-gold focus:ring-lux-gold/30"
                             type="email"
                             name="email"
                             :value="old('email')"
                             required
                             autocomplete="username"
-                            placeholder="you@example.com"
+                            placeholder="ban@example.com"
                         />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-rose-600" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-rose-200" />
                     </div>
 
                     <div>
-                        <x-input-label for="password" :value="__('Password')" class="text-sm font-medium text-slate-700" />
+                        <x-input-label for="password" :value="__('Mật khẩu')" class="text-sm font-medium text-lux-text/80" />
                         <x-text-input
                             id="password"
-                            class="mt-2 block w-full rounded-xl border border-rose-100/80 bg-white/85 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-300 focus:ring-rose-200"
+                            class="mt-2 block w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-3 text-sm text-lux-text placeholder:text-lux-text/50 focus:border-lux-gold focus:ring-lux-gold/30"
                             type="password"
                             name="password"
                             required
                             autocomplete="new-password"
-                            placeholder="Create a password"
+                            placeholder="Tao mat khau"
                         />
-                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-rose-600" />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-rose-200" />
                     </div>
 
                     <div>
-                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-sm font-medium text-slate-700" />
+                        <x-input-label for="password_confirmation" :value="__('Xác nhận mật khẩu')" class="text-sm font-medium text-lux-text/80" />
                         <x-text-input
                             id="password_confirmation"
-                            class="mt-2 block w-full rounded-xl border border-rose-100/80 bg-white/85 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-300 focus:ring-rose-200"
+                            class="mt-2 block w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-3 text-sm text-lux-text placeholder:text-lux-text/50 focus:border-lux-gold focus:ring-lux-gold/30"
                             type="password"
                             name="password_confirmation"
                             required
                             autocomplete="new-password"
-                            placeholder="Re-enter your password"
+                            placeholder="Nhap lai mat khau"
                         />
-                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-rose-600" />
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-rose-200" />
                     </div>
 
                     <button
                         type="submit"
-                        class="w-full rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-500 to-rose-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200/70 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-emerald-300/60 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2"
+                        class="w-full rounded-xl bg-lux-gold px-4 py-3 text-sm font-bold text-lux-bg shadow-2xl transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#d4b06a] focus:outline-none focus:ring-2 focus:ring-lux-gold/40 focus:ring-offset-2 focus:ring-offset-lux-bg"
                     >
-                        {{ __('Register') }}
+                        {{ __('Đăng ký') }}
                     </button>
 
-                    <p class="text-center text-sm text-slate-600">
-                        {{ __('Already registered?') }}
-                        <a href="{{ route('login') }}" class="font-semibold text-rose-600 underline-offset-4 transition hover:text-rose-700 hover:underline">
-                            {{ __('Log in here') }}
+                    <p class="text-center text-sm text-lux-text/70">
+                        {{ __('Bạn đã có tài khoản?') }}
+                        <a href="{{ route('login') }}" class="font-semibold text-lux-gold underline-offset-4 transition hover:text-lux-gold/80 hover:underline">
+                            {{ __('Đăng nhập ngay') }}
                         </a>
                     </p>
                 </form>

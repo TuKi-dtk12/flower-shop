@@ -12,6 +12,12 @@ export default {
     theme: {
         extend: {
             colors: {
+                lux: {
+                    bg: '#08100D',
+                    card: '#111F1A',
+                    gold: '#E5C07B',
+                    text: '#E2E8F0',
+                },
                 floral: {
                     petal: '#f8d7df',
                     sage: '#9eb7a3',

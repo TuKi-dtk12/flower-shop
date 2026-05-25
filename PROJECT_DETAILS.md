@@ -1,9 +1,9 @@
-# Project Details - Fresh Flower Selling Website
+# Project Details - Tuki Fresh Flower Selling Website
 
 ## 1. Project Overview
 
 **Introduction**
-Fresh Flower is a modern ecommerce platform focused on curated floral gifts and premium customer experience. The project delivers an elegant storefront, efficient order processing, and an AI-powered consultant to assist customers in selecting the right bouquets.
+Tuki Fresh Flower is a modern ecommerce platform focused on curated floral gifts and premium customer experience. The project delivers an elegant storefront, efficient order processing, and an AI-powered consultant to assist customers in selecting the right bouquets.
 
 **Objectives**
 - Provide a premium, floral-themed shopping experience across devices.
