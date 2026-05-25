@@ -28,7 +28,7 @@
                 <div class="mt-2 space-y-1 text-sm text-gray-600">
                     <p>Địa chỉ: 72/34 Dương Đức Hiền, Tây Thạnh, TPHCM</p>
                     <p>Điện thoại: 0866384257</p>
-                    <p>Email: support@freshflower.vn</p>
+                    <p>Email: tuankiet121305@gmail.com</p>
                 </div>
             </div>
         </div>

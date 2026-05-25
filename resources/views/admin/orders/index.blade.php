@@ -71,7 +71,7 @@
 
                             {{-- Payment Method Badge --}}
                             <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? 'bg-blue-900/40 text-blue-300' : 'bg-white/10 text-lux-text/60' }}">
-                                {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? '🏦 Chuyển khoản' : '💵 COD' }}
+                                {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? '🏦 Transfer' : '💵 COD' }}
                             </span>
 
                             {{-- Payment Status Badge --}}
@@ -88,7 +88,7 @@
                             @method('PATCH')
                             <label for="status-{{ $order->id }}" class="sr-only">Cập nhật trạng thái</label>
                             <select id="status-{{ $order->id }}" name="status" class="min-w-[150px] rounded-lg border border-white/10 bg-lux-card px-3 py-2 text-sm text-lux-text focus:border-lux-gold focus:outline-none">
-                                <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Chờ xử lý</option>
+                                <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Chờ xác nhận</option>
                                 <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Hoàn thành</option>
                                 <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
                             </select>
@@ -102,9 +102,9 @@
                                 @method('PATCH')
                                 <label for="payment-status-{{ $order->id }}" class="sr-only">Cập nhật thanh toán</label>
                                 <select id="payment-status-{{ $order->id }}" name="payment_status" class="min-w-[150px] rounded-lg border border-white/10 bg-lux-card px-3 py-2 text-sm text-lux-text focus:border-lux-gold focus:outline-none">
-                                    <option value="pending" {{ ($order->payment_status ?? 'pending') === 'pending' ? 'selected' : '' }}>⏳ Chờ TT</option>
-                                    <option value="paid" {{ ($order->payment_status ?? 'pending') === 'paid' ? 'selected' : '' }}>✅ Đã TT</option>
-                                    <option value="failed" {{ ($order->payment_status ?? 'pending') === 'failed' ? 'selected' : '' }}>❌ Thất bại</option>
+                                    <option value="pending" {{ ($order->payment_status ?? 'pending') === 'pending' ? 'selected' : '' }}>Chờ thanh toán</option>
+                                    <option value="paid" {{ ($order->payment_status ?? 'pending') === 'paid' ? 'selected' : '' }}>Đã thanh toán</option>
+                                    <option value="failed" {{ ($order->payment_status ?? 'pending') === 'failed' ? 'selected' : '' }}>Thất bại</option>
                                 </select>
                                 <button type="submit" class="rounded-lg bg-blue-500/20 px-3 py-2 text-sm font-semibold text-blue-300 transition hover:bg-blue-500/30">Xác nhận</button>
                             </form>
