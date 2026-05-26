@@ -38,6 +38,14 @@
         </div>
 
         <div>
+            <label class="mb-1 block text-sm font-medium text-lux-text/70">Trạng thái</label>
+            <select name="status" required class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40">
+                <option value="active" {{ old('status', $product->status) === 'active' ? 'selected' : '' }}>🟢 Còn hàng</option>
+                <option value="inactive" {{ old('status', $product->status) === 'inactive' ? 'selected' : '' }}>🔴 Hết hàng</option>
+            </select>
+        </div>
+
+        <div>
             <label class="mb-1 block text-sm font-medium text-lux-text/70">Mô tả</label>
             <textarea name="description" rows="4" class="w-full rounded-xl border border-white/10 bg-lux-bg px-4 py-2.5 text-lux-text placeholder-lux-text/40 transition focus:border-lux-gold focus:outline-none focus:ring-1 focus:ring-lux-gold/40">{{ old('description', $product->description) }}</textarea>
         </div>

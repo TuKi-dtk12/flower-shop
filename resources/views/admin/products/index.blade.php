@@ -13,7 +13,7 @@
     <div class="mt-6 space-y-3">
         @forelse ($products as $product)
             @php
-                $inStock = isset($product->status) ? $product->status === 'active' : true;
+                $inStock = ($product->status ?? 'active') === 'active';
             @endphp
             <article class="rounded-2xl border border-white/5 bg-lux-bg p-4 shadow-sm transition hover:border-lux-gold/20 hover:shadow-xl sm:p-5">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

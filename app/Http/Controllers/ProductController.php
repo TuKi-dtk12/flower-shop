@@ -39,6 +39,7 @@ class ProductController extends Controller
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png|max:2048',
             'clear_gallery' => 'sometimes|boolean',
+            'status' => 'required|in:active,inactive',
         ]);
 
         if ($request->hasFile('image')) {
@@ -84,6 +85,7 @@ class ProductController extends Controller
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png|max:2048',
             'clear_gallery' => 'sometimes|boolean',
+            'status' => 'required|in:active,inactive',
         ]);
 
         if ($request->hasFile('image')) {
