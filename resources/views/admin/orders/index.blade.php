@@ -57,9 +57,14 @@
             <article class="rounded-2xl border border-white/5 bg-lux-bg p-4">
                 <div class="flex flex-wrap items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-lg font-semibold text-lux-text">Đơn hàng #{{ $order->id }}</h2>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <h2 class="text-lg font-semibold text-lux-text">Đơn hàng #{{ $order->id }}</h2>
+                            <button type="button" onclick="toggleDetail({{ $order->id }})" class="flex items-center gap-1 text-xs font-semibold text-lux-gold transition hover:text-lux-gold/80 hover:underline">
+                                👁️ Xem chi tiết
+                            </button>
+                        </div>
                         <p class="text-sm text-lux-text/60">Khách: {{ $order->user->name ?? 'Unknown' }} ({{ $order->user->email ?? '-' }})</p>
-                        <p class="text-sm text-lux-text/60">Ngày đặt: {{ $order->created_at?->format('d/m/Y H:i') }}</p>
+                        <p class="text-sm text-lux-text/60">Ngày đặt: {{ $order->created_at?->format('H:i d/m/Y') }}</p>
                         <p class="mt-1 text-sm font-semibold text-lux-gold">Tổng: {{ number_format($order->total_price, 0, ',', '.') }} VND</p>
                     </div>
 
@@ -71,7 +76,7 @@
 
                             {{-- Payment Method Badge --}}
                             <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? 'bg-blue-900/40 text-blue-300' : 'bg-white/10 text-lux-text/60' }}">
-                                {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? '🏦 Transfer' : '💵 COD' }}
+                                {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? '🏦 Chuyển khoản' : '💵 COD' }}
                             </span>
 
                             {{-- Payment Status Badge --}}
@@ -112,6 +117,70 @@
                     </div>
                 </div>
 
+                {{-- ═══════ Shipping Detail Panel (hidden by default) ═══════ --}}
+                <div id="detail-{{ $order->id }}" class="mt-4 hidden rounded-2xl border border-white/10 bg-lux-card p-5 transition-all" style="animation: fadeSlideDown 0.3s ease-out;">
+                    <h3 class="mb-4 flex items-center gap-2 font-serif text-base font-semibold text-lux-gold">
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>
+                        </svg>
+                        Thông tin giao hàng
+                    </h3>
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        {{-- Column 1: Customer Info --}}
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Người nhận</p>
+                                <p class="mt-1 text-sm text-lux-text">{{ $order->shipping_name ?: '—' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Số điện thoại</p>
+                                <p class="mt-1 text-sm text-lux-text">{{ $order->shipping_phone ?: '—' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Email</p>
+                                <p class="mt-1 text-sm text-lux-text">{{ $order->shipping_email ?: '—' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Địa chỉ giao hàng</p>
+                                <p class="mt-1 text-sm leading-relaxed text-lux-text">{{ $order->shipping_address ?: '—' }}</p>
+                            </div>
+                        </div>
+
+                        {{-- Column 2: Order Metadata --}}
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Phương thức thanh toán</p>
+                                <p class="mt-1 text-sm text-lux-text">
+                                    @if(($order->payment_method ?? 'cod') === 'bank_transfer')
+                                        🏦 Chuyển khoản ngân hàng (VietQR)
+                                    @else
+                                        💵 Thanh toán khi nhận hàng (COD)
+                                    @endif
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Trạng thái thanh toán</p>
+                                <p class="mt-1 text-sm text-lux-text">
+                                    @if(($order->payment_status ?? 'pending') === 'paid')
+                                        <span class="text-emerald-400">✅ Đã thanh toán</span>
+                                    @elseif(($order->payment_status ?? 'pending') === 'failed')
+                                        <span class="text-red-400">❌ Thanh toán thất bại</span>
+                                    @else
+                                        <span class="text-amber-300">⏳ Chờ thanh toán</span>
+                                    @endif
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Ghi chú khách hàng</p>
+                                <div class="mt-1 rounded-xl bg-lux-bg/80 p-3 text-sm leading-relaxed text-lux-text/80">
+                                    {{ $order->note ?: 'Không có ghi chú.' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="mt-4 overflow-x-auto">
                     <table class="min-w-full divide-y divide-white/5">
                         <thead class="bg-lux-card">
@@ -142,4 +211,23 @@
 
     <div class="mt-5">{{ $orders->links() }}</div>
 </div>
+
+<style>
+    @keyframes fadeSlideDown {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+<script>
+    function toggleDetail(orderId) {
+        const panel = document.getElementById('detail-' + orderId);
+        if (!panel) return;
+        if (panel.classList.contains('hidden')) {
+            panel.classList.remove('hidden');
+            panel.style.animation = 'fadeSlideDown 0.3s ease-out';
+        } else {
+            panel.classList.add('hidden');
+        }
+    }
+</script>
 @endsection
