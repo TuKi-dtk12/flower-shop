@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 @php
@@ -91,25 +91,53 @@
         <a href="{{ route('products.index') }}" class="text-sm font-semibold text-lux-gold transition hover:text-lux-gold/80">Khám phá tất cả</a>
     </div>
 
+    @php
+        $collections = [
+            [
+                'name'  => 'Hoa khai trương',
+                'slug'  => 'Hoa khai trương',
+                'desc'  => 'Rực rỡ và hoành tráng, chúc mừng khởi đầu thịnh vượng.',
+                'image' => 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=800&q=80',
+            ],
+            [
+                'name'  => 'Hoa sinh nhật',
+                'slug'  => 'Hoa sinh nhật',
+                'desc'  => 'Tươi vui và rạng rỡ, gửi trọn lời chúc ngày đặc biệt.',
+                'image' => 'https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=800&q=80',
+            ],
+            [
+                'name'  => 'Hoa cưới',
+                'slug'  => 'Hoa cưới',
+                'desc'  => 'Thanh lịch và lãng mạn, tô điểm ngày trọng đại.',
+                'image' => 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80',
+            ],
+            [
+                'name'  => 'Hoa chia buồn',
+                'slug'  => 'Hoa chia buồn',
+                'desc'  => 'Trang trọng và tinh tế, gửi lời chia sẻ chân thành.',
+                'image' => 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80',
+            ],
+        ];
+    @endphp
+
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        @forelse ($bentoCategories as $index => $categoryName)
+        @foreach ($collections as $collection)
             @php
-                $imageUrl = $categoryImages[$index % count($categoryImages)];
+                $category = \App\Models\Category::where('name', $collection['slug'])->first();
+                $categoryLink = $category
+                    ? route('products.index', ['category' => $category->id])
+                    : route('products.index');
             @endphp
-            <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111F1A] shadow-lg">
-                <img src="{{ $imageUrl }}" alt="{{ $categoryName }}" class="h-56 w-full object-cover transition duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-black/40"></div>
+            <a href="{{ $categoryLink }}" class="group relative block overflow-hidden rounded-3xl border border-white/10 bg-lux-card shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-lux-gold/30 hover:shadow-2xl">
+                <img src="{{ $collection['image'] }}" alt="{{ $collection['name'] }}" class="h-56 w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-5 text-lux-text">
-                    <p class="text-xs uppercase tracking-[0.2em] text-lux-text/70">Danh mục</p>
-                    <h3 class="mt-2 font-serif text-2xl font-semibold">{{ $categoryName }}</h3>
-                    <p class="mt-2 text-sm text-lux-text/80">Bảng màu sang trọng, phù hợp tặng dịp quan trọng.</p>
+                    <p class="text-xs uppercase tracking-[0.2em] text-lux-gold/70">Danh mục</p>
+                    <h3 class="mt-1.5 font-serif text-2xl font-semibold transition duration-300 group-hover:text-lux-gold">{{ $collection['name'] }}</h3>
+                    <p class="mt-1.5 text-sm text-lux-text/70">{{ $collection['desc'] }}</p>
                 </div>
-            </article>
-        @empty
-            <article class="rounded-3xl border border-dashed border-white/20 bg-lux-card p-6 text-sm text-lux-text/70 sm:col-span-2 lg:col-span-4">
-                Điểm nhấn danh mục sẽ xuất hiện khi có sản phẩm.
-            </article>
-        @endforelse
+            </a>
+        @endforeach
     </div>
 </section>
 
