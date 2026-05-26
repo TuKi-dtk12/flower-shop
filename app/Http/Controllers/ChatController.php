@@ -69,11 +69,11 @@ class ChatController extends Controller
             ],
             'generationConfig' => [
                 'temperature' => 0.8, // Tăng nhẹ để AI tư vấn "bay bổng" hơn một chút
-                'maxOutputTokens' => 2000, // Tăng lên để tránh bị cắt cụt câu trả lời
+                'maxOutputTokens' => 2500, // Tăng lên để tránh bị cắt cụt câu trả lời
             ],
         ];
 
-        $response = Http::timeout(30)
+        $response = Http::timeout(40)
             ->acceptJson()
             ->post("{$baseUrl}/{$model}:generateContent?key=" . urlencode($apiKey), $payload);
 
