@@ -16,7 +16,7 @@
                     <li>Dữ liệu duyệt web để cá nhân hóa gợi ý và ưu đãi.</li>
                 </ul>
                 <p>Chúng tôi không bán dữ liệu của bạn. Việc truy cập chỉ dành cho nhân sự được ủy quyền và đối tác tuân thủ.</p>
-                <p>Nếu có yêu cầu về quyền riêng tư, vui lòng liên hệ tuankiet121305@gmail.com</p>
+                <p>Nếu có yêu cầu về quyền riêng tư, vui lòng liên hệ vào email: tuankiet121305@gmail.com</p>
             </div>
         </div>
     </section>
