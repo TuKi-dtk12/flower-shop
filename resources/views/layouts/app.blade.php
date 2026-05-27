@@ -154,7 +154,7 @@
                 <div class="space-y-4">
                     <div class="rounded-2xl border border-white/10 bg-lux-card p-4 text-sm text-lux-text/70 shadow-sm">
                         <p class="font-semibold text-lux-gold">Tin cậy &amp; Bảo mật</p>
-                        <p class="mt-1">• Thanh toán mã hóa TLS 1.3 <br>• Tích hợp thanh toán online<br>• Giám sát rủi ro 24/7</p>
+                        <p class="mt-1">• Trang bị giao thức SSL/TLS <br>• Tích hợp thanh toán online<br>• Giám sát rủi ro 24/7</p>
                     </div>
                 </div>
             </div>
@@ -211,9 +211,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c3 0 5.5 2.3 5.5 5.1 0 2.6-2.1 5-4.8 5.4-.4.1-.7.5-.7.9v1.2H9.7v-1.2c0-.4-.3-.8-.7-.9C6.6 14.6 4.5 12.2 4.5 9.6 4.5 6.8 7 4.5 10 4.5h2z" />
                         </svg>
                     </span>
-                    <div class="max-w-[85%] rounded-2xl rounded-tl-none bg-lux-bg px-3 py-2 text-lux-text text-justify whitespace-pre-line">
-                        Hiii, mình là trợ lý tư vấn mẫu hoa của Tuki Fresh Flower. Bạn muốn tìm hoa cho dịp nào?
-                    </div>
+                    <div class="max-w-[85%] rounded-2xl rounded-tl-none bg-lux-bg px-3 py-2 text-lux-text text-justify whitespace-pre-line">Hiii, mình là trợ lý tư vấn mẫu hoa của Tuki Fresh Flower. Bạn muốn tìm hoa cho dịp nào?</div>
                 </div>
             </div>
 
@@ -226,7 +224,7 @@
                         name="message"
                         type="text"
                         maxlength="500"
-                        placeholder="Ví dụ: Gợi ý bó hoa kỷ niệm ngày cưới, ngân sách 700k"
+                        placeholder="Ví dụ: Gợi ý hoa khai trương, ngân sách 700k"
                         class="h-11 flex-1 rounded-full border border-white/10 bg-lux-bg px-4 text-sm text-lux-text placeholder:text-lux-text/50 focus:border-lux-gold/40 focus:outline-none focus:ring-2 focus:ring-lux-gold/30"
                     />
                     <button
@@ -281,9 +279,9 @@
                     : '<svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5c3 0 5.5 2.3 5.5 5.1 0 2.6-2.1 5-4.8 5.4-.4.1-.7.5-.7.9v1.2H9.7v-1.2c0-.4-.3-.8-.7-.9C6.6 14.6 4.5 12.2 4.5 9.6 4.5 6.8 7 4.5 10 4.5h2z" /></svg>';
 
                 const bubble = document.createElement('div');
-                bubble.className = role === 'user'
-                    ? 'max-w-[80%] rounded-2xl rounded-tr-none bg-organic-coral px-3 py-2 text-white'
-                    : 'max-w-[80%] rounded-2xl rounded-tl-none bg-[#111F1A] p-3 text-[#E2E8F0] text-justify whitespace-pre-line';
+                    bubble.className = role === 'user'
+                        ? 'max-w-[80%] rounded-2xl rounded-tr-none bg-organic-coral px-3 py-2 text-white'
+                        : 'max-w-[85%] rounded-2xl rounded-tl-none bg-lux-bg px-3 py-2 text-lux-text text-justify whitespace-pre-line';
 
                 if (allowHtml) {
                     bubble.innerHTML = String(text).replace(/\n/g, '<br>');

@@ -75,7 +75,7 @@
         🌹 Cam kết hoa tươi mỗi ngày
     </div>
     <div class="rounded-2xl border border-white/10 bg-lux-card p-5 text-sm font-medium text-lux-text/80 shadow-sm">
-        🔒 Bảo mật thanh toán TLS 1.3
+        🔒 Bảo mật dữ liệu cá nhân
     </div>
     <div class="rounded-2xl border border-white/10 bg-lux-card p-5 text-sm font-medium text-lux-text/80 shadow-sm">
         📞 Hỗ trợ tận tâm 24/7
