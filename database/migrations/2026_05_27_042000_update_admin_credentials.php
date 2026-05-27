@@ -8,35 +8,32 @@ return new class extends Migration
 {
     /**
      * Update admin account credentials.
+     * Handles case where email already exists on another user.
      */
     public function up(): void
     {
-        // Update the admin user (is_admin = 1) or first user
+        $newEmail = 'tukiadmin@freshflower.com';
+        $newPassword = Hash::make('Kietadmin@1212');
+
+        // Find the admin user
         $admin = DB::table('users')->where('is_admin', 1)->first();
 
         if ($admin) {
+            // Remove any non-admin user that already has this email
+            DB::table('users')
+                ->where('email', $newEmail)
+                ->where('id', '!=', $admin->id)
+                ->delete();
+
+            // Update admin credentials
             DB::table('users')->where('id', $admin->id)->update([
-                'email'    => 'tukiadmin@freshflower.com',
-                'password' => Hash::make('Kietadmin@1212'),
+                'email'      => $newEmail,
+                'password'   => $newPassword,
                 'updated_at' => now(),
-            ]);
-        } else {
-            // If no admin exists, create one
-            DB::table('users')->insert([
-                'name'              => 'Tuki Admin',
-                'email'             => 'tukiadmin@freshflower.com',
-                'password'          => Hash::make('Kietadmin@1212'),
-                'is_admin'          => 1,
-                'email_verified_at' => now(),
-                'created_at'        => now(),
-                'updated_at'        => now(),
             ]);
         }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         // No reversal needed
