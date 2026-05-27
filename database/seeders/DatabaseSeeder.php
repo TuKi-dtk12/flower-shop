@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         $faker = fake('vi_VN');
 
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('password123'),
+            'name' => 'Đinh Tuấn Kiệt (Admin)',
+            'email' => 'tukiadmin@freshflower.com',
+            'password' => Hash::make('Kietadmin@1212'),
             'is_admin' => true,
         ]);
 
