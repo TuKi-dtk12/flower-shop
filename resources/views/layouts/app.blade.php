@@ -116,7 +116,7 @@
                         <p class="mt-2 text-sm text-lux-text/70">Hoa tươi mỗi ngày, đong đầy yêu thương.</p>
                     </div>
                     <div class="space-y-2 text-sm text-lux-text/70">
-                        <p><span class="font-medium text-lux-text">Địa chỉ:</span> 72/34 Dương Đức Hiền, Tây Thạnh, TPHCM</p>
+                        <p><span class="font-medium text-lux-text">Địa chỉ:</span> 140 Lê Trọng Tấn, Tây Thạnh, TPHCM</p>
                         <p><span class="font-medium text-lux-text">Số điện thoại:</span> 0866384257</p>
                         <p><span class="font-medium text-lux-text">Email:</span> tuankiet121305@gmail.com</p>
                     </div>

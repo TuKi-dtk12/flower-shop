@@ -26,7 +26,7 @@
             <div class="rounded-2xl border border-rose-100 bg-white p-4">
                 <p class="text-sm font-semibold text-gray-800">Liên hệ</p>
                 <div class="mt-2 space-y-1 text-sm text-gray-600">
-                    <p>Địa chỉ: 72/34 Dương Đức Hiền, Tây Thạnh, TPHCM</p>
+                    <p>Địa chỉ: 140 Lê Trọng Tấn, Tây Thạnh, TPHCM</p>
                     <p>Điện thoại: 0866384257</p>
                     <p>Email: tuankiet121305@gmail.com</p>
                 </div>
