@@ -21,27 +21,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $faker = fake('vi_VN');
-
-        User::create([
-            'name' => 'Đinh Tuấn Kiệt (Admin)',
-            'email' => 'tukiadmin@freshflower.com',
-            'password' => Hash::make('Kietadmin@1212'),
-            'is_admin' => true,
-        ]);
-
-        User::create([
-            'name' => 'User One',
-            'email' => 'user1@gmail.com',
-            'password' => Hash::make('password123'),
-            'is_admin' => false,
-        ]);
-
-        User::create([
-            'name' => 'User Two',
-            'email' => 'user2@gmail.com',
-            'password' => Hash::make('password123'),
-            'is_admin' => false,
-        ]);
+        User::updateOrCreate(
+                    ['email' => 'tukiadmin@freshflower.com'],
+                    [
+                        'name' => 'Đinh Tuấn Kiệt (Admin)',
+                        'password' => Hash::make('Kietadmin@1212'),
+                        'is_admin' => true,
+                    ]
+                );
 
         $categoriesConfig = [
             1 => [
