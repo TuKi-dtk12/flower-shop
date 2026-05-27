@@ -52,12 +52,14 @@
                         </a>
                     @endif
                     
-                    <a href="tel:0866384257" class="inline-flex items-center gap-1.5 rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold transition hover:bg-lux-gold/10">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
-                            <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97a16.616 16.616 0 0 0 6.422 6.422l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd" />
-                        </svg>
-                        Gọi hotline
-                    </a>
+                    @if (!auth()->user()->is_admin)
+                        <a href="tel:0866384257" class="inline-flex items-center gap-1.5 rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold transition hover:bg-lux-gold/10">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97a16.616 16.616 0 0 0 6.422 6.422l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd" />
+                            </svg>
+                            Gọi hotline
+                        </a>
+                    @endif
                     <a href="{{ route('cart.index') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold transition hover:bg-lux-gold/10">
                         Giỏ hàng
                     </a>
