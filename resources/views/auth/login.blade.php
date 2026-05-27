@@ -56,7 +56,7 @@
                             required
                             autofocus
                             autocomplete="username"
-                            placeholder="ban@example.com"
+                            placeholder="Name@gmail.com"
                         />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-rose-200" />
                     </div>
@@ -70,7 +70,7 @@
                             name="password"
                             required
                             autocomplete="current-password"
-                            placeholder="Nhap mat khau"
+                            placeholder="Password"
                         />
                         <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-rose-200" />
                     </div>

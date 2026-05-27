@@ -54,7 +54,7 @@
                             required
                             autofocus
                             autocomplete="name"
-                            placeholder="Ho va ten"
+                            placeholder="Full name"
                         />
                         <x-input-error :messages="$errors->get('name')" class="mt-2 text-sm text-rose-200" />
                     </div>
@@ -69,7 +69,7 @@
                             :value="old('email')"
                             required
                             autocomplete="username"
-                            placeholder="ban@example.com"
+                            placeholder="Name@gmail.com"
                         />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-rose-200" />
                     </div>
@@ -83,7 +83,7 @@
                             name="password"
                             required
                             autocomplete="new-password"
-                            placeholder="Tao mat khau"
+                            placeholder="Password"
                         />
                         <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-rose-200" />
                     </div>
@@ -97,7 +97,7 @@
                             name="password_confirmation"
                             required
                             autocomplete="new-password"
-                            placeholder="Nhap lai mat khau"
+                            placeholder="Confirm password"
                         />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-rose-200" />
                     </div>

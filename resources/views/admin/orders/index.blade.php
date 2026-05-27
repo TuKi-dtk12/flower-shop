@@ -59,16 +59,15 @@
                     <div>
                         <div class="flex flex-wrap items-center gap-3">
                             <h2 class="text-lg font-semibold text-lux-text">Đơn hàng #{{ $order->id }}</h2>
+                            <button type="button" onclick="toggleDetail('{{ $order->id }}')" class="flex items-center gap-1 text-xs font-semibold text-lux-gold transition hover:text-lux-gold/80 hover:underline">
+                                Xem chi tiết
+                            </button>
                         </div>
                         <p class="text-sm text-lux-text/60">Khách: {{ $order->user->name ?? 'Unknown' }} ({{ $order->user->email ?? '-' }})</p>
                         <p class="text-sm text-lux-text/60">Ngày đặt: {{ $order->created_at?->format('H:i d/m/Y') }}</p>
                         <p class="mt-1 text-sm font-semibold text-lux-gold">Tổng: {{ number_format($order->total_price, 0, ',', '.') }} VND</p>
                     </div>
-                    <div class="sm:absolute sm:left-1/2 sm:top-6 sm:-translate-x-1/2 my-2 sm:my-0 w-full sm:w-auto text-center">
-                        <button type="button" onclick="toggleDetail('{{ $order->id }}')" class="inline-flex items-center gap-1 text-sm font-semibold text-lux-gold transition hover:text-lux-gold/80 hover:underline">
-                            Xem chi tiết
-                        </button>
-                    </div>
+
                     <div class="flex flex-col items-start gap-2 sm:items-end">
                         <div class="flex flex-wrap items-center gap-1.5">
                             <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $order->status === 'completed' ? 'bg-emerald-900/60 text-emerald-300' : ($order->status === 'cancelled' ? 'bg-white/10 text-lux-text/60' : 'bg-amber-900/40 text-amber-300') }}">
