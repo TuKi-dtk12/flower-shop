@@ -59,8 +59,8 @@
                     <div>
                         <div class="flex flex-wrap items-center gap-3">
                             <h2 class="text-lg font-semibold text-lux-text">Đơn hàng #{{ $order->id }}</h2>
-                            <button type="button" onclick="toggleDetail({{ $order->id }})" class="flex items-center gap-1 text-xs font-semibold text-lux-gold transition hover:text-lux-gold/80 hover:underline">
-                                👁️ Xem chi tiết
+                            <button type="button" onclick="toggleDetail('{{ $order->id }}')" class="flex items-center gap-1 text-xs font-semibold text-lux-gold transition hover:text-lux-gold/80 hover:underline">
+                                Xem chi tiết
                             </button>
                         </div>
                         <p class="text-sm text-lux-text/60">Khách: {{ $order->user->name ?? 'Unknown' }} ({{ $order->user->email ?? '-' }})</p>
@@ -76,13 +76,13 @@
 
                             {{-- Payment Method Badge --}}
                             <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? 'bg-blue-900/40 text-blue-300' : 'bg-white/10 text-lux-text/60' }}">
-                                {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? '🏦 Chuyển khoản' : '💵 COD' }}
+                                {{ ($order->payment_method ?? 'cod') === 'bank_transfer' ? 'Chuyển khoản' : 'COD' }}
                             </span>
 
                             {{-- Payment Status Badge --}}
                             @if(($order->payment_method ?? 'cod') === 'bank_transfer')
                                 <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ ($order->payment_status ?? 'pending') === 'paid' ? 'bg-emerald-900/60 text-emerald-300' : (($order->payment_status ?? 'pending') === 'failed' ? 'bg-red-900/40 text-red-300' : 'bg-amber-900/40 text-amber-300') }}">
-                                    {{ ($order->payment_status ?? 'pending') === 'paid' ? '✅ Đã TT' : (($order->payment_status ?? 'pending') === 'failed' ? '❌ Thất bại' : '⏳ Chờ TT') }}
+                                    {{ ($order->payment_status ?? 'pending') === 'paid' ? 'Đã TT' : (($order->payment_status ?? 'pending') === 'failed' ? 'Thất bại' : 'Chờ TT') }}
                                 </span>
                             @endif
                         </div>
@@ -153,9 +153,9 @@
                                 <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Phương thức thanh toán</p>
                                 <p class="mt-1 text-sm text-lux-text">
                                     @if(($order->payment_method ?? 'cod') === 'bank_transfer')
-                                        🏦 Chuyển khoản ngân hàng (VietQR)
+                                        Chuyển khoản ngân hàng (VietQR)
                                     @else
-                                        💵 Thanh toán khi nhận hàng (COD)
+                                        Thanh toán khi nhận hàng (COD)
                                     @endif
                                 </p>
                             </div>
@@ -163,11 +163,11 @@
                                 <p class="text-xs font-semibold uppercase tracking-wider text-lux-text/40">Trạng thái thanh toán</p>
                                 <p class="mt-1 text-sm text-lux-text">
                                     @if(($order->payment_status ?? 'pending') === 'paid')
-                                        <span class="text-emerald-400">✅ Đã thanh toán</span>
+                                        <span class="text-emerald-400">Đã thanh toán</span>
                                     @elseif(($order->payment_status ?? 'pending') === 'failed')
-                                        <span class="text-red-400">❌ Thanh toán thất bại</span>
+                                        <span class="text-red-400">Thanh toán thất bại</span>
                                     @else
-                                        <span class="text-amber-300">⏳ Chờ thanh toán</span>
+                                        <span class="text-amber-300">Chờ thanh toán</span>
                                     @endif
                                 </p>
                             </div>
