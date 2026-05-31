@@ -73,7 +73,7 @@
                         Đăng nhập
                     </a>
                 @else
-                    <a href="{{ route('orders.index') }}" class="rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-lux-text hover:border-lux-gold hover:text-lux-gold transition-all duration-200 mr-2">
+                    <a href="{{ route('orders.index') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold/90 transition hover:bg-lux-gold/10">
                         Đơn hàng
                     </a>
                     <a href="{{ route('profile.edit') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold transition hover:bg-lux-gold/10">
