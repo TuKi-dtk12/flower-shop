@@ -91,7 +91,28 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/checkout', function () {
-        $cart = session()->get('cart', []);
+        if (\Illuminate\Support\Facades\Auth::check()) {
+            $dbItems = \Illuminate\Support\Facades\Auth::user()->cartItems()->with('product')->get();
+            $cart = [];
+            foreach ($dbItems as $item) {
+                if ($item->product) {
+                    $cart[$item->product_id] = [
+                        'product_id' => $item->product_id,
+                        'name' => $item->product->name,
+                        'price' => (float) $item->product->price,
+                        'quantity' => $item->quantity,
+                        'image' => $item->product->image,
+                    ];
+                }
+            }
+        } else {
+            $cart = session()->get('cart', []);
+        }
+
+        if (empty($cart)) {
+            return redirect()->route('cart.index')->with('error', 'Giỏ hàng của bạn đang trống, không thể tiến hành thanh toán.');
+        }
+
         $total = collect($cart)->sum(fn (array $item) => $item['price'] * $item['quantity']);
 
         return view('checkout', compact('cart', 'total'));

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -65,10 +66,26 @@ class OrderController extends Controller
             'payment_method'   => 'required|in:cod,bank_transfer',
         ]);
 
-        $cart = session()->get('cart', []);
+        if (Auth::check()) {
+            $dbItems = Auth::user()->cartItems()->with('product')->get();
+            $cart = [];
+            foreach ($dbItems as $item) {
+                if ($item->product) {
+                    $cart[$item->product_id] = [
+                        'product_id' => $item->product_id,
+                        'name' => $item->product->name,
+                        'price' => (float) $item->product->price,
+                        'quantity' => $item->quantity,
+                        'image' => $item->product->image,
+                    ];
+                }
+            }
+        } else {
+            $cart = session()->get('cart', []);
+        }
 
         if (empty($cart)) {
-            return back()->with('error', 'Giỏ hàng trống.');
+            return back()->with('error', 'Giỏ hàng của bạn đang trống, không thể tiến hành thanh toán.');
         }
 
         $order = null;
@@ -99,7 +116,11 @@ class OrderController extends Controller
             }
         });
 
-        session()->forget('cart');
+        if (Auth::check()) {
+            Auth::user()->cartItems()->delete();
+        } else {
+            session()->forget('cart');
+        }
 
         if ($validated['payment_method'] === 'bank_transfer' && $order) {
             return redirect()->route('payment.show', $order);
