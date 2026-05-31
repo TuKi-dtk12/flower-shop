@@ -34,7 +34,11 @@ class NewPasswordController extends Controller
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => [
+                'required', 
+                'confirmed', 
+                Password::min(8)->mixedCase()->symbols()
+            ],
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we
