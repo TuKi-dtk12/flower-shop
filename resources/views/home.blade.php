@@ -209,7 +209,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-lux-text/60">Địa chỉ cửa hàng</p>
-                            <p class="mt-1 font-semibold text-lux-gold">140 Lê Trọng Tấn, Tây Thạnh, Hồ Chí Minh 700000, Việt Nam</p>
+                            <p class="mt-1 font-semibold text-lux-gold">140 Lê Trọng Tấn, Tây Thạnh, Hồ Chí Minh, Việt Nam</p>
                         </div>
                     </div>
 
@@ -248,7 +248,7 @@
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade"
-                    sandbox="allow-scripts allow-same-origin allow-popups">
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation">
                 </iframe>
                 {{-- Interactive hint overlay for non-hover devices or initial state --}}
                 <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/20 opacity-100 transition-opacity duration-500 group-hover:opacity-0">
