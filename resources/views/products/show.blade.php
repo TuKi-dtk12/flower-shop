@@ -74,7 +74,7 @@
 
         {{-- Existing Reviews --}}
         <div class="space-y-6 mb-10">
-            @forelse ($product->reviews()->with('user')->latest()->get() as $review)
+            @forelse ($product->reviews()->with(['user', 'images'])->latest()->get() as $review)
                 <div class="flex gap-4">
                     <img src="{{ $review->user->avatar ? asset('storage/' . $review->user->avatar) : 'https://ui-avatars.com/api/?name='.urlencode($review->user->name).'&color=E5C07B&background=111F1A' }}" alt="{{ $review->user->name }}" class="h-12 w-12 rounded-full object-cover border border-lux-gold/30">
                     <div class="flex-1">
@@ -90,6 +90,15 @@
                             @endfor
                         </div>
                         <p class="mt-2 text-sm text-lux-text/80 leading-relaxed">{{ $review->comment }}</p>
+                        
+                        {{-- Review Attached Images --}}
+                        @if($review->images->isNotEmpty())
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                @foreach($review->images as $revImg)
+                                    <img src="{{ asset('storage/' . $revImg->image_path) }}" alt="Review Image" class="h-16 w-16 cursor-pointer rounded-lg border border-white/10 object-cover transition hover:border-lux-gold/50" onclick="document.getElementById('main-image-link').click(); document.getElementById('lightbox-image').src = this.src;">
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             @empty
@@ -101,7 +110,7 @@
         @auth
             <div class="rounded-2xl border border-white/5 bg-lux-bg p-5">
                 <h3 class="font-medium text-lux-gold mb-4">Viết đánh giá của bạn</h3>
-                <form action="{{ route('reviews.store', $product) }}" method="POST">
+                <form action="{{ route('reviews.store', $product) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
                         <label class="block text-sm text-lux-text/70 mb-2">Đánh giá (1-5 sao)</label>
@@ -124,6 +133,20 @@
                         @error('comment')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="block text-sm text-lux-text/70 mb-2">Đính kèm ảnh (Tối đa 3 ảnh, mỗi ảnh < 3MB)</label>
+                        <input type="file" name="images[]" id="review-images" multiple accept="image/jpeg, image/png, image/webp" class="block w-full cursor-pointer rounded-xl border border-white/10 bg-lux-card text-sm text-lux-text file:mr-4 file:rounded-l-xl file:border-0 file:bg-lux-gold/20 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-lux-gold hover:file:bg-lux-gold/30">
+                        @error('images')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        @error('images.*')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        
+                        {{-- JS Preview Container --}}
+                        <div id="image-preview-container" class="mt-3 flex flex-wrap gap-3 empty:hidden"></div>
                     </div>
                     
                     <button type="submit" class="rounded-lg bg-lux-gold px-6 py-2.5 text-sm font-semibold text-lux-bg shadow-md transition hover:shadow-lg hover:shadow-lux-gold/20 active:scale-[0.98]">
@@ -259,6 +282,27 @@
                     currentRating = parseInt(star.getAttribute('data-value'), 10);
                     ratingInput.value = currentRating;
                     updateStars(currentRating);
+                });
+        // Review Image Upload Preview Logic
+        const reviewImagesInput = document.getElementById('review-images');
+        const previewContainer = document.getElementById('image-preview-container');
+
+        if (reviewImagesInput && previewContainer) {
+            reviewImagesInput.addEventListener('change', function(event) {
+                previewContainer.innerHTML = '';
+                const files = Array.from(event.target.files).slice(0, 3); // Max 3 preview
+
+                files.forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'h-20 w-20 rounded-xl object-cover border border-white/20 shadow-md transition-all duration-300 hover:scale-105';
+                        previewContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
                 });
             });
         }
