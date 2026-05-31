@@ -182,4 +182,82 @@
         @endforelse
     </div>
 </section>
+
+{{-- Premium Contact/Map Section --}}
+<section class="mt-16 mb-8 animate-fade-in-up">
+    <div class="rounded-[2.5rem] border border-white/10 bg-lux-card/70 p-8 shadow-2xl sm:p-12">
+        <div class="grid gap-10 md:grid-cols-2 md:items-center">
+            
+            {{-- Column 1: Store Information --}}
+            <div class="space-y-6">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-lux-gold/80">Liên hệ</p>
+                    <h2 class="mt-2 font-serif text-3xl font-semibold text-lux-text sm:text-4xl">Ghé Thăm Tuki Fresh Flower</h2>
+                </div>
+                
+                <p class="text-lux-text/70 leading-relaxed">
+                    Đến với cửa hàng của chúng tôi để trực tiếp cảm nhận vẻ đẹp tinh tế của từng đóa hoa tươi và nhận được sự tư vấn tận tình nhất cho nhu cầu của bạn.
+                </p>
+
+                <div class="space-y-4 rounded-2xl border border-white/5 bg-lux-bg/50 p-6 shadow-inner">
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lux-gold/10 text-lux-gold">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-lux-text/60">Địa chỉ cửa hàng</p>
+                            <p class="mt-1 font-semibold text-lux-gold">140 Lê Trọng Tấn, Tây Thạnh, Hồ Chí Minh 700000, Việt Nam</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lux-gold/10 text-lux-gold">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-lux-text/60">Điện thoại</p>
+                            <p class="mt-1 font-semibold text-lux-gold">0866 384 257</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-lux-gold/10 text-lux-gold">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-lux-text/60">Giờ mở cửa</p>
+                            <p class="mt-1 font-semibold text-lux-gold">08:00 - 21:00 (Mỗi ngày)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Column 2: Google Maps Iframe Wrapper --}}
+            <div class="h-full w-full rounded-2xl overflow-hidden border border-white/10 bg-lux-bg shadow-inner relative group">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4245.645453409951!2d106.62625947538994!3d10.806920289343747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27ea41e05%3A0xfa77697a39f13ab0!2zMTQwIEzDqiBUcuG7jW5nIFThuqVuLCBUw6J5IFRo4bqhbmgsIEjhu5MgQ2jDrSBNaW5oIDcwMDAwMCwgVmnhu4d0IE5hbQ!5e1!3m2!1svi!2s!4v1780243504623!5m2!1svi!2s" 
+                    class="w-full h-full min-h-[350px] md:h-[400px] grayscale opacity-75 contrast-125 transition-all duration-500 hover:grayscale-0 hover:opacity-100"
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    sandbox="allow-scripts allow-same-origin allow-popups">
+                </iframe>
+                {{-- Interactive hint overlay for non-hover devices or initial state --}}
+                <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/20 opacity-100 transition-opacity duration-500 group-hover:opacity-0">
+                    <span class="rounded-full bg-lux-bg/80 px-4 py-2 text-sm font-medium text-lux-gold backdrop-blur-md shadow-lg border border-lux-gold/20">Chạm để xem bản đồ</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 @endsection
