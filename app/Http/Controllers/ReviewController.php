@@ -35,8 +35,6 @@ class ReviewController extends Controller
         $review->save();
 
         if ($request->hasFile('images')) {
-            $manager = new ImageManager(new Driver());
-            
             foreach ($request->file('images') as $file) {
                 // Generate a cryptographically secure, unpredictable filename
                 $secureName = Str::uuid()->toString() . '_' . time();
@@ -46,8 +44,11 @@ class ReviewController extends Controller
                 $finalFilename = $secureName . '.' . $extension;
 
                 try {
+                    // Initialize explicitly inside the try block in case the GD driver is missing
+                    $manager = new ImageManager(new Driver());
+
                     // Load the image via Intervention Image to strip EXIF and destroy polyglot payloads
-                    $image = $manager->read($file->getRealPath());
+                    $image = $manager->read($file);
                     
                     // Re-encode based on detected extension to sanitize the file completely
                     $encoded = match ($extension) {
@@ -56,15 +57,15 @@ class ReviewController extends Controller
                         default => $image->toJpeg(90),
                     };
 
-                    // Store safely
-                    Storage::disk('public')->put('review_attachments/' . $finalFilename, (string) $encoded);
+                    // Store safely using toString()
+                    Storage::disk('public')->put('review_attachments/' . $finalFilename, $encoded->toString());
 
                     // Create DB record
                     $review->images()->create([
                         'image_path' => 'review_attachments/' . $finalFilename,
                     ]);
                 } catch (\Exception $e) {
-                    // Log error and ignore this file if malicious or unreadable
+                    // Log error and ignore this file if malicious, unreadable, or missing driver
                     \Illuminate\Support\Facades\Log::warning("Failed to process review image upload: " . $e->getMessage());
                 }
             }
