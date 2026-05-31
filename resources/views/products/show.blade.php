@@ -16,18 +16,21 @@
                 </span>
             </a>
 
-            @if ($product->images->isNotEmpty())
-                <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-4 gap-3">
+                {{-- Main Image as First Thumbnail --}}
+                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/900x700?text=Fresh+Flower' }}" alt="{{ $product->name }} main" class="gallery-thumbnail w-full h-16 rounded-xl overflow-hidden border border-lux-gold cursor-pointer object-cover transition duration-300">
+
+                @if ($product->images->isNotEmpty())
                     @foreach ($product->images as $galleryImage)
                         @php
                             $galleryPath = $galleryImage->image_path;
                         @endphp
                         @if ($galleryPath && \Illuminate\Support\Facades\Storage::disk('public')->exists($galleryPath))
-                            <img src="{{ asset('storage/' . $galleryPath) }}" alt="{{ $product->name }} gallery" class="gallery-thumbnail h-24 w-full cursor-pointer rounded-xl border-2 border-transparent object-cover transition duration-300 hover:border-lux-gold/50">
+                            <img src="{{ asset('storage/' . $galleryPath) }}" alt="{{ $product->name }} gallery" class="gallery-thumbnail w-full h-16 rounded-xl overflow-hidden border border-white/10 cursor-pointer object-cover transition duration-300 hover:border-lux-gold/50">
                         @endif
                     @endforeach
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
 
         {{-- Product Info --}}
@@ -160,9 +163,11 @@
 
         const setActiveThumbnail = (active) => {
             thumbnails.forEach((thumbnail) => {
-                thumbnail.classList.remove('border-lux-gold', 'ring-2', 'ring-lux-gold/30');
+                thumbnail.classList.remove('border-lux-gold');
+                thumbnail.classList.add('border-white/10');
             });
-            active.classList.add('border-lux-gold', 'ring-2', 'ring-lux-gold/30');
+            active.classList.remove('border-white/10');
+            active.classList.add('border-lux-gold');
         };
 
         if (thumbnails.length > 0) {
@@ -175,7 +180,14 @@
                 if (!nextSrc) {
                     return;
                 }
-                mainImage.setAttribute('src', nextSrc);
+                
+                // Smooth transition
+                mainImage.style.opacity = '0';
+                setTimeout(() => {
+                    mainImage.setAttribute('src', nextSrc);
+                    mainImage.style.opacity = '1';
+                }, 150);
+
                 setActiveThumbnail(thumbnail);
             });
         });
