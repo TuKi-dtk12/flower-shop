@@ -35,15 +35,18 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'clear_gallery' => 'sometimes|boolean',
             'status' => 'required|in:active,inactive',
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'product_' . time() . '_' . \Illuminate\Support\Str::random(10) . '.' . $extension;
+            $validated['image'] = $file->storeAs('products', $filename, 'public');
         }
 
         $product = Product::create($validated);
@@ -53,7 +56,9 @@ class ProductController extends Controller
                 if (!$file || !$file->isValid()) {
                     continue;
                 }
-                $path = $file->store('products/gallery', 'public');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'gallery_' . $product->id . '_' . time() . '_' . \Illuminate\Support\Str::random(10) . '.' . $extension;
+                $path = $file->storeAs('products/gallery', $filename, 'public');
                 $path = $this->sanitizeStoragePath($path);
                 if ($path === '') {
                     continue;
@@ -81,9 +86,9 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'clear_gallery' => 'sometimes|boolean',
             'status' => 'required|in:active,inactive',
         ]);
@@ -95,7 +100,10 @@ class ProductController extends Controller
                     Storage::disk('public')->delete($path);
                 }
             }
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'product_' . $product->id . '_' . time() . '_' . \Illuminate\Support\Str::random(10) . '.' . $extension;
+            $validated['image'] = $file->storeAs('products', $filename, 'public');
         }
 
         $product->update($validated);
@@ -116,7 +124,9 @@ class ProductController extends Controller
                 if (!$file || !$file->isValid()) {
                     continue;
                 }
-                $path = $file->store('products/gallery', 'public');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'gallery_' . $product->id . '_' . time() . '_' . \Illuminate\Support\Str::random(10) . '.' . $extension;
+                $path = $file->storeAs('products/gallery', $filename, 'public');
                 $path = $this->sanitizeStoragePath($path);
                 if ($path === '') {
                     continue;

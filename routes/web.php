@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    Route::post('/products/{product}/reviews', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
+
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/checkout', function () {
         $cart = session()->get('cart', []);
