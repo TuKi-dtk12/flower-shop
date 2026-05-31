@@ -73,6 +73,9 @@
                         Đăng nhập
                     </a>
                 @else
+                    <a href="{{ route('profile.edit') }}" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-semibold text-lux-gold transition hover:bg-lux-gold/10">
+                        Tài khoản
+                    </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="rounded-full border border-lux-gold/40 px-4 py-1.5 font-medium text-lux-gold transition hover:bg-lux-gold/10">
