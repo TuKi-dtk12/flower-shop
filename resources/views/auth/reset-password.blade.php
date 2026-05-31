@@ -2,16 +2,14 @@
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
-        <!-- Password Reset Token -->
+        <!-- Password Reset Token & Email -->
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
+        <input type="hidden" name="email" value="{{ old('email', $request->email) }}">
 
-        <!-- Email Address -->
+        <!-- Email Display (Readonly) -->
         <div>
-            <label for="email" class="block font-medium text-sm text-lux-text">Email</label>
-            <input id="email" class="block mt-1 w-full bg-lux-bg border border-white/10 text-lux-text rounded-xl focus:border-lux-gold focus:ring focus:ring-lux-gold/20" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" />
-            @error('email')
-                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-            @enderror
+            <label for="email_display" class="block font-medium text-sm text-lux-text">Email</label>
+            <input id="email_display" class="block mt-1 w-full bg-lux-bg/50 border border-white/10 text-lux-text/50 rounded-xl cursor-not-allowed" type="email" value="{{ old('email', $request->email) }}" disabled />
         </div>
 
         <!-- Password -->
