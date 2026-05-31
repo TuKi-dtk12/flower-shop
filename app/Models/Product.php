@@ -42,4 +42,9 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function cartItems(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

@@ -24,9 +24,31 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Save the guest cart before authentication
+        $guestCart = session()->get('cart', []);
+
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Merge guest cart into database cart
+        if (!empty($guestCart)) {
+            $user = Auth::user();
+            foreach ($guestCart as $productId => $item) {
+                $cartItem = $user->cartItems()->where('product_id', $productId)->first();
+                if ($cartItem) {
+                    $newQuantity = min(50, $cartItem->quantity + $item['quantity']);
+                    $cartItem->update(['quantity' => $newQuantity]);
+                } else {
+                    $user->cartItems()->create([
+                        'product_id' => $productId,
+                        'quantity' => min(50, $item['quantity']),
+                    ]);
+                }
+            }
+            // Clear the guest cart from session
+            session()->forget('cart');
+        }
 
         return redirect()->intended('/');
     }
