@@ -92,7 +92,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/checkout', function () {
         if (\Illuminate\Support\Facades\Auth::check()) {
-            $dbItems = \Illuminate\Support\Facades\Auth::user()->cartItems()->with('product')->get();
+            /** @var \App\Models\User $user */
+            $user = \Illuminate\Support\Facades\Auth::user();
+            $dbItems = $user->cartItems()->with('product')->get();
             $cart = [];
             foreach ($dbItems as $item) {
                 if ($item->product) {
