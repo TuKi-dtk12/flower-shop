@@ -13,7 +13,9 @@ class CartController extends Controller
     public function index(): View
     {
         if (Auth::check()) {
-            $dbItems = Auth::user()->cartItems()->with('product')->get();
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            $dbItems = $user->cartItems()->with('product')->get();
             $cart = [];
             foreach ($dbItems as $item) {
                 if ($item->product) {
@@ -45,13 +47,15 @@ class CartController extends Controller
         $product = Product::findOrFail($validated['product_id']);
         
         if (Auth::check()) {
-            $cartItem = Auth::user()->cartItems()->where('product_id', $product->id)->first();
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            $cartItem = $user->cartItems()->where('product_id', $product->id)->first();
             
             if ($cartItem) {
                 $newQuantity = min(50, $cartItem->quantity + $validated['quantity']);
                 $cartItem->update(['quantity' => $newQuantity]);
             } else {
-                Auth::user()->cartItems()->create([
+                $user->cartItems()->create([
                     'product_id' => $product->id,
                     'quantity' => min(50, $validated['quantity']),
                 ]);
@@ -84,7 +88,9 @@ class CartController extends Controller
         ]);
 
         if (Auth::check()) {
-            $cartItem = Auth::user()->cartItems()->where('product_id', $product->id)->first();
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            $cartItem = $user->cartItems()->where('product_id', $product->id)->first();
             if ($cartItem) {
                 $cartItem->update(['quantity' => min(50, $validated['quantity'])]);
             } else {
@@ -107,7 +113,9 @@ class CartController extends Controller
     public function destroy(Product $product): RedirectResponse
     {
         if (Auth::check()) {
-            Auth::user()->cartItems()->where('product_id', $product->id)->delete();
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            $user->cartItems()->where('product_id', $product->id)->delete();
         } else {
             $cart = session()->get('cart', []);
 

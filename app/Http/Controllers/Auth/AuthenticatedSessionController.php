@@ -33,6 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         // Merge guest cart into database cart
         if (!empty($guestCart)) {
+            /** @var \App\Models\User $user */
             $user = Auth::user();
             foreach ($guestCart as $productId => $item) {
                 $cartItem = $user->cartItems()->where('product_id', $productId)->first();

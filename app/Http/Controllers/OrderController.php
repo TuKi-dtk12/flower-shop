@@ -67,7 +67,9 @@ class OrderController extends Controller
         ]);
 
         if (Auth::check()) {
-            $dbItems = Auth::user()->cartItems()->with('product')->get();
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            $dbItems = $user->cartItems()->with('product')->get();
             $cart = [];
             foreach ($dbItems as $item) {
                 if ($item->product) {
@@ -117,7 +119,9 @@ class OrderController extends Controller
         });
 
         if (Auth::check()) {
-            Auth::user()->cartItems()->delete();
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            $user->cartItems()->delete();
         } else {
             session()->forget('cart');
         }
