@@ -89,9 +89,40 @@
                         </button>
                     </form>
                 @endguest
+
+                {{-- Mobile Hamburger Button --}}
+                <button type="button" id="mobile-menu-btn" class="ml-2 block text-lux-text transition hover:text-lux-gold focus:outline-none md:hidden" aria-label="Toggle mobile menu">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        {{-- Mobile Menu Container --}}
+        <div id="mobile-menu" class="hidden border-t border-white/10 bg-lux-bg/95 backdrop-blur-xl md:hidden">
+            <div class="space-y-1 px-4 pb-4 pt-2">
+                <a href="{{ route('products.index') }}" class="block rounded-md px-3 py-2 text-base font-medium text-lux-text transition hover:bg-lux-gold/10 hover:text-lux-gold">Tất cả hoa</a>
+                @foreach ($navCategories as $category)
+                    <a href="{{ route('products.index', ['category' => $category->id]) }}" class="block rounded-md px-3 py-2 text-base font-medium text-lux-text transition hover:bg-lux-gold/10 hover:text-lux-gold">
+                        {{ $category->name }}
+                    </a>
+                @endforeach
             </div>
         </div>
     </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
 
     <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         @if (session('success'))
