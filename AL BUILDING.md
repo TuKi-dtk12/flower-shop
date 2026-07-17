@@ -197,29 +197,3 @@ php artisan optimize:clear
 ```bash
 php artisan storage:link
 ```
-
-## 12. Checklist build
-
-- [ ] Da cai dat Composer dependencies thanh cong.
-- [ ] Da cai dat npm dependencies thanh cong.
-- [ ] Da tao file `.env` va generate key.
-- [ ] Da cau hinh DB dung cho moi truong local.
-- [ ] Da migrate (va seed neu can) thanh cong.
-- [ ] Da build frontend assets thanh cong.
-- [ ] Da chay duoc website local.
-- [ ] Da chay test suite thanh cong.
-
-## 13. Build/Run Log thuc te (Phien hien tai)
-
-Ngay ghi nhan: 2026-04-27
-
-Muc dich: Ghi lai cac lenh da thuc su duoc chay trong phien lam viec de doi chieu voi huong dan build.
-
-| STT | Command | Muc dich | Ket qua |
-|---|---|---|---|
-| 1 | `php artisan route:list` | Kiem tra route sau khi cap nhat chuc nang admin/orders | Thanh cong |
-| 2 | `php artisan test` | Chay regression test sau khi cap nhat code | Thanh cong (25 passed) |
-
-Ghi chu:
-- Phien hien tai KHONG chay lai day du chuoi build moi (composer install, npm install, npm run build, php artisan serve).
-- Cac buoc tren van la huong dan build chuan cho may moi, con bang log nay la lich su thao tac thuc te trong phien.
