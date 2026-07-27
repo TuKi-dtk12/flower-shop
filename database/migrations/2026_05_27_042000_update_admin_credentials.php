@@ -12,8 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $newEmail = 'tukiadmin@freshflower.com';
-        $newPassword = Hash::make('Kietadmin@1212');
+        $newEmail = '';
+        $newPassword = Hash::make('');
 
         // Find the admin user
         $admin = DB::table('users')->where('is_admin', 1)->first();
