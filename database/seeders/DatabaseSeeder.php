@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
     {
         $faker = fake('vi_VN');
         User::updateOrCreate(
-                    ['email' => 'tukiadmin@freshflower.com'],
+                    ['email' => ''],
                     [
-                        'name' => 'Đinh Tuấn Kiệt (Admin)',
-                        'password' => Hash::make('Kietadmin@1212'),
+                        'name' => '',
+                        'password' => Hash::make(''),
                         'is_admin' => true,
                     ]
                 );  
